@@ -1,0 +1,62 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+/* glyph fonts */
+@font-face {
+	font-family: 'NMS-Glyphs-Mono';
+	src: local('NMS-Glyphs-Mono'), local('NMS-Glyphs-Mono'), url(https://nomanssky.fandom.com/media/hydra/fonts/NMS-Glyphs-Mono.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'NMS-Glyphs-Tight';
+	src: local('NMS-Glyphs-Tight'), local('NMS-Glyphs-Tight'), url(https://nomanssky.fandom.com/media/hydra/fonts/NMS-Glyphs-Tight.ttf) format('truetype');
+}
+
+html,
+body {
+	font-family: Nunito;
+}
+
+.container {
+	margin-bottom: 5em;
+}
+
+.home {
+	margin-top: 2em;
+    width: 70%;
+}
+
+.glyphs {
+	font-family: NMS-Glyphs-Mono;
+	font-size: 40px;
+}
+
+.glyphs.icon.is-small {
+	height: inherit;
+}
+
+.portal-buttons {
+	display: grid;
+	grid-template-columns: repeat(8, 60px);
+    margin: 1em 0px;
+}
+
+@media only screen and (max-width: 500px) {
+	.portal-buttons {
+		display: flex;
+		flex-wrap: wrap;
+	}
+}
+
+#delButton {
+    margin: 0.5em;
+}
+
+.title {
+    text-align: center;
+    padding-top: 1em;
+}
+
+.HubTag {
+    font-family: 'Consolas', monospace;
+}

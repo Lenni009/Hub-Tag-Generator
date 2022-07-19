@@ -19,11 +19,7 @@ body {
 
 .container {
 	margin-bottom: 5em;
-}
-
-.home {
 	margin-top: 2em;
-    width: 70%;
 }
 
 .glyphs {
@@ -41,10 +37,14 @@ body {
     margin: 1em 0px;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 564px) {
 	.portal-buttons {
 		display: flex;
 		flex-wrap: wrap;
+	}
+
+	.actions {
+		margin: 0 auto;
 	}
 }
 
@@ -54,9 +54,25 @@ body {
 
 .title {
     text-align: center;
-    padding-top: 1em;
+    padding-top: 0.5em;
 }
 
 .HubTag {
     font-family: 'Consolas', monospace;
+}
+
+.dropdown {
+	width: 15em;
+}
+
+.actions {
+	width: inherit;
+}
+
+.actions>input {
+	margin: 3px 0px;
+}
+
+nav {
+	font-size: larger;
 }

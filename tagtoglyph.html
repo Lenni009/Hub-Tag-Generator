@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hub-Tag Decoder</title>
+	<link rel="stylesheet" href="./styles.css">
+	<script src="./logic.js"></script>
+    <script>
+    </script>
+</head>
+
+<body>
+	<div class="container" style="width: min(400px, 90%);">
+        <nav style="text-align: left;">
+            <a href="./">&larr; Convert glyphs to Hub-Tag</a>
+        </nav>
+        <h1 class="title">Hub-Tag Decoder</h1>
+        <form>
+            <div>
+                <label for="galaxy_input">Select your current galaxy:</label>
+                <select class="dropdown" name="galaxy" id="galaxy_input" onchange="hideGlyphs(this, 'hide')">
+                    <option value="">
+                    <option value="Euclid">Euclid
+                    <option value="Hilbert">Hilbert
+                    <option value="Calypso">Calypso
+                    <option value="Budullangr">Budullangr
+                    <option value="Eissentam">Eissentam
+                </select>
+            </div>
+            <div class="hide" id="input_field" style="display: none;">
+                <div>
+                    <label class="label" for="tag_input">Hub-Tag:</label>
+                </div>
+
+                <div>
+                    <input style="width:min(400px, 90%)" class="input" type="text" id="tag_input">
+                </div>
+            </div>
+        </form>
+        <div class="actions hide" style="display: none;">
+            <input class="button is-primary" type="submit" value="Show Glyphs" onclick="submitTag('galaxy_input', 'tag_input', 'glyph_display')">
+            <input class="button is-warning" type="reset" value="Reset Hub-Tag" onclick="clearValue('tag_input')">
+        </div>
+        <div id="output" style="display: none">
+            Glyphs:
+            <div class="glyphs">0<output id="glyph_display"></output></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -12,18 +12,17 @@ const GHubRegions = {
 	'F8556C30': 'Nonlopsi Instability'
 };
 const HilHubRegions = {
-	'F9556C30': 'Uisaor Spur',
-	'F9555C30': 'The Arm of Kiffeyn',
-	'F9555C31': 'Ilongl Cloud',
-	'F9556C31': 'The Arm of Taticale',
-	'F9557C31': 'Egerap Anomaly',
-	'F9557C30': 'Wakestones Expanse',
-	'F9557C2F': 'Erhahn Fringe',
-	'F9556C2F': 'Imrikians Terminus',
-	'F9555C2F': 'Imedeili',
-	'FA556C30': 'Kovasu Adjunct',
-	'F8556C30': 'Lossians Boundary'
-
+	'F9556C30': 'Nuwardia',
+	'F9555C30': 'Arm of Orphaea',
+	'F9555C31': 'Oulvill',
+	'F9556C31': 'Sea of Femanau',
+	'F9557C31': 'Logalurug Expanse',
+	'F9557C30': 'Doikawis',
+	'F9557C2F': 'Ijortu Spur',
+	'F9556C2F': 'Bayores Shallows',
+	'F9555C2F': 'Meveldrun Expanse',
+	'FA556C30': 'Kossiza',
+	'F8556C30': 'Lorishup'
 };
 const CalHubRegions = {
 	'F9556C30': 'Uisaor Spur',
@@ -140,22 +139,27 @@ function glyphOnClick(button, inputId) {
 	if (portalCode.length < 12) {
 		input.value += button.value;
 	}
+	showGlyphs()
 }
 
 function glyphInputOnChange(input) {
-	const newValue = input?.value?.toUpperCase?.();
-	if (newValue == null) return;
+	const intermediateValue = input?.value?.toUpperCase?.();
+	if (intermediateValue == null) return;
 
-	input.value = newValue
+	const newValue = intermediateValue
 		.split('')
 		.filter(char => validPortalKeys.includes(char))
 		.join('')
 		.substr(0, 12);
+	input.value = newValue
+	return newValue
 }
 
 // clears value of an input
-function clearValue(inputId) {
-	document.getElementById(inputId).value = ''
+function clearValues(inputArray) {
+	for (const ID of inputArray) {
+		document.getElementById(ID).value = ''
+	}
 }
 
 function hideGlyphs(input, target) {
@@ -186,10 +190,20 @@ function getHubNumber(galaxy_inputId, glyph_inputId) {
     return index
 }
 
-function submit(galaxy_inputId, glyph_inputId, Nr, SSI) {
+function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI) {
     const HubNr = getHubNumber(galaxy_inputId, glyph_inputId);
     const SysIndex = document.getElementById(glyph_inputId).value.substring(1, 4);
     document.getElementById(Nr).parentElement.parentElement.style.display = ''
     document.getElementById(Nr).innerHTML = HubNr;
     document.getElementById(SSI).innerHTML = SysIndex;
+}
+
+function submitTag(galaxy_inputId, tag_inputId, glyph_codeId) {
+	const galaxy = document.getElementById(galaxy_inputId).value;
+	const input = document.getElementById(tag_inputId).value.replaceAll('[', '').replaceAll(']', '');
+	const HubNr = input.split('-')[0].substring(3)
+	const RegCode = Object.keys(HubGalaxies[galaxy])[(parseInt(HubNr) - 1)]
+	const SysIndex = input.split('-')[1].padStart(3, '0')
+	document.getElementById(glyph_codeId).parentElement.parentElement.style.display = ''
+	document.getElementById(glyph_codeId).innerHTML = SysIndex + RegCode;
 }

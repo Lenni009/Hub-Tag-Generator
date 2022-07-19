@@ -81,11 +81,11 @@ const EisHubRegions = {
 };
 
 const HubGalaxies = {
-    'Euclid': GHubRegions,
-    'Hilbert': HilHubRegions,
-    'Calypso': CalHubRegions,
-    'Budullangr': BudHubRegions,
-    'Eissentam': EisHubRegions,
+	'Euclid': GHubRegions,
+	'Hilbert': HilHubRegions,
+	'Calypso': CalHubRegions,
+	'Budullangr': BudHubRegions,
+	'Eissentam': EisHubRegions,
 };
 
 const validPortalKeys = '0123456789ABCDEF'
@@ -163,39 +163,39 @@ function clearValues(inputArray) {
 }
 
 function hideGlyphs(input, target) {
-    const names = document.getElementsByClassName(target);
-    if (input.value == '') {
-        for (const name of names) {
-            name.style.display = 'none'
-        }
-    } else {
-        for (const name of names) {
-            name.style.display = ''
-        }
-    }
+	const names = document.getElementsByClassName(target);
+	if (input.value == '') {
+		for (const name of names) {
+			name.style.display = 'none'
+		}
+	} else {
+		for (const name of names) {
+			name.style.display = ''
+		}
+	}
 }
 
 // returns Hub nr
 function getHubNumber(galaxy_inputId, glyph_inputId) {
 	let check = document.getElementById(galaxy_inputId).value;
-    let glyphs = document.getElementById(glyph_inputId).value;
+	let glyphs = document.getElementById(glyph_inputId).value;
 	let index;
 	let regArray = [];
-    regArray = Object.keys(HubGalaxies[check]);
+	regArray = Object.keys(HubGalaxies[check]);
 
-    glyphs = glyphs.substring(4);
-    index = regArray.indexOf(glyphs);
-    index++
+	glyphs = glyphs.substring(4);
+	index = regArray.indexOf(glyphs);
+	index++
 
-    return index
+	return index
 }
 
 function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI) {
-    const HubNr = getHubNumber(galaxy_inputId, glyph_inputId);
-    const SysIndex = document.getElementById(glyph_inputId).value.substring(1, 4);
-    document.getElementById(Nr).parentElement.parentElement.style.display = ''
-    document.getElementById(Nr).innerHTML = HubNr;
-    document.getElementById(SSI).innerHTML = SysIndex;
+	const HubNr = getHubNumber(galaxy_inputId, glyph_inputId);
+	const SysIndex = parseInt(document.getElementById(glyph_inputId).value.substring(1, 4), 16).toString(16).toUpperCase()
+	document.getElementById(Nr).parentElement.parentElement.style.display = ''
+	document.getElementById(Nr).innerHTML = HubNr;
+	document.getElementById(SSI).innerHTML = SysIndex;
 }
 
 function submitTag(galaxy_inputId, tag_inputId, glyph_codeId) {

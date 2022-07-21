@@ -105,6 +105,7 @@ function glyphRegion(glyph_inputId, galaxy_inputId) {
 	let glyphs = document.getElementById(glyph_inputId).value
 	let civ = document.getElementById(galaxy_inputId).value
 	if (glyphs.length == 12) {
+		let region;
 		let regionGlyphs = glyphs.substring(4);
 		switch (civ) {
 			case "GHub":
@@ -119,14 +120,14 @@ function glyphRegion(glyph_inputId, galaxy_inputId) {
 				region = EisHubRegions[regionGlyphs]
 				break
 		}
-	}
-	if (region == undefined) {
-		document.getElementById(region_codeId).style.backgroundColor = 'red';
-		region = 'No valid Hub region'
-		glyphElement.style.backgroundColor = 'red'
-	} else {
-		document.getElementById(region_codeId).style.backgroundColor = '';
-		glyphElement.style.backgroundColor = ''
+		if (region == undefined) {
+			document.getElementById(region_codeId).style.backgroundColor = 'red';
+			region = 'No valid Hub region'
+			glyphElement.style.backgroundColor = 'red'
+		} else {
+			document.getElementById(region_codeId).style.backgroundColor = '';
+			glyphElement.style.backgroundColor = ''
+		}
 	}
 	setOutput(region_codeId, region);
 }
@@ -192,6 +193,9 @@ function getHubNumber(galaxy_inputId, glyph_inputId) {
 }
 
 function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI) {
+	glyphRegion()
+
+
 	const HubNr = getHubNumber(galaxy_inputId, glyph_inputId);
 	const SysIndex = parseInt(document.getElementById(glyph_inputId).value.substring(1, 4), 16).toString(16).toUpperCase()
 	document.getElementById(Nr).parentElement.parentElement.style.display = ''

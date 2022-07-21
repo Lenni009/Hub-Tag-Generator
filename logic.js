@@ -193,9 +193,6 @@ function getHubNumber(galaxy_inputId, glyph_inputId) {
 }
 
 function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI) {
-	glyphRegion()
-
-
 	const HubNr = getHubNumber(galaxy_inputId, glyph_inputId);
 	const SysIndex = parseInt(document.getElementById(glyph_inputId).value.substring(1, 4), 16).toString(16).toUpperCase()
 	document.getElementById(Nr).parentElement.parentElement.style.display = ''

@@ -96,6 +96,7 @@ function deleteCharacter(codeId) {
 	const editedText = input.value.slice(0, -1);
 
 	input.value = editedText;
+	showGlyphs();
 }
 
 // assigns the region based on glyphs

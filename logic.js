@@ -225,9 +225,12 @@ function submitTag(galaxy_inputId, tag_inputId, glyph_codeId, error) {
 	const SysIndex = input.split('-')[1].padStart(3, '0')
     const Array = Object.keys(HubGalaxies[galaxy])
     if (HubNr > 0 && HubNr <= Array.length) {
+        document.getElementById(error).parentElement.style.display = 'none'
         document.getElementById(glyph_codeId).parentElement.parentElement.style.display = ''
         document.getElementById(glyph_codeId).innerHTML = SysIndex + RegCode;
     } else {
+        document.getElementById(glyph_codeId).parentElement.parentElement.style.display = 'none'
+        document.getElementById(error).parentElement.style.display = ''
         document.getElementById(error).innerHTML = 'Wrong region ID'
     }
 }

@@ -195,26 +195,26 @@ function getHubNumber(galaxy_inputId, glyph_inputId) {
 function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI, error) {
 	const HubNr = getHubNumber(galaxy_inputId, glyph_inputId);
 	let SysIndex = parseInt(document.getElementById(glyph_inputId).value.substring(1, 4), 16).toString(16).toUpperCase()
-if (HubNr > 0 && SysIndex > 0 && parseInt(SysIndex, 16) < 768) {
-        document.getElementById(Nr).parentElement.parentElement.style.display = ''
-        document.getElementById(error).parentElement.style.display = 'none';
-        document.getElementById(glyph_inputId).style.backgroundColor = '';
-        document.getElementById(Nr).innerHTML = HubNr;
-        if (SysIndex == 69) {
-            SysIndex = '68+1'
-        }
-        document.getElementById(SSI).innerHTML = SysIndex;
-    } else if (!HubNr > 0) {
-        document.getElementById(Nr).parentElement.parentElement.style.display = 'none'
-        document.getElementById(glyph_inputId).style.backgroundColor = 'lightcoral';
-        document.getElementById(error).parentElement.style.display = '';
-        document.getElementById(error).innerHTML = 'Wrong region glyphs (glyphs 5-12)'
-    } else if (!(SysIndex > 0 && parseInt(SysIndex, 16) < 768)) {
-        document.getElementById(Nr).parentElement.parentElement.style.display = 'none'
-        document.getElementById(glyph_inputId).style.backgroundColor = 'lightcoral';
-        document.getElementById(error).parentElement.style.display = '';
-        document.getElementById(error).innerHTML = 'Wrong system index (glyphs 2-4)'
-    }
+	if (HubNr > 0 && parseInt(SysIndex, 16) > 0 && parseInt(SysIndex, 16) < 768) {
+		document.getElementById(Nr).parentElement.parentElement.style.display = ''
+		document.getElementById(error).parentElement.style.display = 'none';
+		document.getElementById(glyph_inputId).style.backgroundColor = '';
+		document.getElementById(Nr).innerHTML = HubNr;
+		if (SysIndex == 69) {
+			SysIndex = '68+1'
+		}
+		document.getElementById(SSI).innerHTML = SysIndex;
+	} else if (!HubNr > 0) {
+		document.getElementById(Nr).parentElement.parentElement.style.display = 'none'
+		document.getElementById(glyph_inputId).style.backgroundColor = 'lightcoral';
+		document.getElementById(error).parentElement.style.display = '';
+		document.getElementById(error).innerHTML = 'Wrong region glyphs (glyphs 5-12)'
+	} else {
+		document.getElementById(Nr).parentElement.parentElement.style.display = 'none'
+		document.getElementById(glyph_inputId).style.backgroundColor = 'lightcoral';
+		document.getElementById(error).parentElement.style.display = '';
+		document.getElementById(error).innerHTML = 'Wrong system index (glyphs 2-4)'
+	}
 }
 
 function submitTag(galaxy_inputId, tag_inputId, glyph_codeId, error) {
@@ -223,26 +223,26 @@ function submitTag(galaxy_inputId, tag_inputId, glyph_codeId, error) {
 	const HubNr = input.split('-')[0].substring(3)
 	const RegCode = Object.keys(HubGalaxies[galaxy])[(parseInt(HubNr) - 1)]
 	const SysIndex = input.split('-')[1].padStart(3, '0')
-    const Array = Object.keys(HubGalaxies[galaxy])
-    if (HubNr > 0 && HubNr <= Array.length) {
-        document.getElementById(error).parentElement.style.display = 'none'
-        document.getElementById(glyph_codeId).parentElement.parentElement.style.display = ''
-        document.getElementById(glyph_codeId).innerHTML = SysIndex + RegCode;
-    } else {
-        document.getElementById(glyph_codeId).parentElement.parentElement.style.display = 'none'
-        document.getElementById(error).parentElement.style.display = ''
-        document.getElementById(error).innerHTML = 'Wrong region ID'
-    }
+	const Array = Object.keys(HubGalaxies[galaxy])
+	if (HubNr > 0 && HubNr <= Array.length) {
+		document.getElementById(error).parentElement.style.display = 'none'
+		document.getElementById(glyph_codeId).parentElement.parentElement.style.display = ''
+		document.getElementById(glyph_codeId).innerHTML = SysIndex + RegCode;
+	} else {
+		document.getElementById(glyph_codeId).parentElement.parentElement.style.display = 'none'
+		document.getElementById(error).parentElement.style.display = ''
+		document.getElementById(error).innerHTML = 'Wrong region ID'
+	}
 }
 
 // error checking when length is 12
 function errorCheck(glyphs_inputId, galaxy_inputId, outputDiv) {
-    const glyphs = document.getElementById(glyphs_inputId);
-    const galaxy = document.getElementById(galaxy_inputId).value;
-    if (glyphs.value.length == 12 && !Object.keys(HubGalaxies[galaxy]).includes(glyphs.value.substring(4))) {
-        document.getElementById(outputDiv).style.display = 'none'
-        document.getElementById(glyphs_inputId).style.backgroundColor = 'lightcoral';
-    } else {
-        document.getElementById(glyphs_inputId).style.backgroundColor = '';
-    }
+	const glyphs = document.getElementById(glyphs_inputId);
+	const galaxy = document.getElementById(galaxy_inputId).value;
+	if (glyphs.value.length == 12 && !Object.keys(HubGalaxies[galaxy]).includes(glyphs.value.substring(4))) {
+		document.getElementById(outputDiv).style.display = 'none'
+		document.getElementById(glyphs_inputId).style.backgroundColor = 'lightcoral';
+	} else {
+		document.getElementById(glyphs_inputId).style.backgroundColor = '';
+	}
 }

@@ -227,7 +227,7 @@ function submitTag(galaxy_inputId, tag_inputId, glyph_codeId, error) {
 		errorfunc(tag_inputId, glyph_codeId, error, 'Invalid Hub tag format (missing "-")');
 		return
 	}
-	const SysIndex = input.split('-')[1].padStart(3, '0')
+	const SysIndex = input.split('-')[1].substring(0, 3).padStart(3, '0')
 	const Array = Object.keys(HubGalaxies[galaxy])
 	if (HubNr > 0 && HubNr <= Array.length) {
 		document.getElementById(error).parentElement.style.display = 'none'

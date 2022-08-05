@@ -192,6 +192,13 @@ function getHubNumber(galaxy_inputId, glyph_inputId) {
 	return index
 }
 
+function errorfunc(inputId, output_codeId, error_codeId, error) {
+	document.getElementById(output_codeId).parentElement.parentElement.style.display = 'none'
+	document.getElementById(inputId).style.backgroundColor = 'lightcoral';
+	document.getElementById(error_codeId).parentElement.style.display = '';
+	document.getElementById(error_codeId).innerHTML = error
+}
+
 function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI, error) {
 	const HubNr = getHubNumber(galaxy_inputId, glyph_inputId);
 	let SysIndex = parseInt(document.getElementById(glyph_inputId).value.substring(1, 4), 16).toString(16).toUpperCase()
@@ -205,15 +212,9 @@ function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI, error) {
 		}
 		document.getElementById(SSI).innerHTML = SysIndex;
 	} else if (!HubNr > 0) {
-		document.getElementById(Nr).parentElement.parentElement.style.display = 'none'
-		document.getElementById(glyph_inputId).style.backgroundColor = 'lightcoral';
-		document.getElementById(error).parentElement.style.display = '';
-		document.getElementById(error).innerHTML = 'Wrong region glyphs (glyphs 5-12)'
+		errorfunc(glyph_inputId, Nr, error, 'Wrong region glyphs (glyphs 5-12)')
 	} else {
-		document.getElementById(Nr).parentElement.parentElement.style.display = 'none'
-		document.getElementById(glyph_inputId).style.backgroundColor = 'lightcoral';
-		document.getElementById(error).parentElement.style.display = '';
-		document.getElementById(error).innerHTML = 'Wrong system index (glyphs 2-4)'
+		errorfunc(glyph_inputId, Nr, error, 'Wrong system index (glyphs 2-4)')
 	}
 }
 
@@ -222,6 +223,10 @@ function submitTag(galaxy_inputId, tag_inputId, glyph_codeId, error) {
 	const input = document.getElementById(tag_inputId).value.replaceAll('[', '').replaceAll(']', '').replaceAll('68+1', '69');
 	const HubNr = input.split('-')[0].substring(3)
 	const RegCode = Object.keys(HubGalaxies[galaxy])[(parseInt(HubNr) - 1)]
+	if (input.split('-').length == 1) {
+		errorfunc(tag_inputId, glyph_codeId, error, 'Invalid Hub tag format (missing "-")');
+		return
+	}
 	const SysIndex = input.split('-')[1].padStart(3, '0')
 	const Array = Object.keys(HubGalaxies[galaxy])
 	if (HubNr > 0 && HubNr <= Array.length) {

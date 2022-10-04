@@ -80,3 +80,7 @@ nav {
 .error {
     background-color: red;
 }
+
+label {
+	display: inline-block !important;
+}

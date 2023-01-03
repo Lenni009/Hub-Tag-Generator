@@ -14,6 +14,8 @@
         window.onload = () => {
             hideGlyphs(document.getElementById('galaxy_input'), 'hide');
             errorCheck('portalglyphs_input', 'galaxy_input', 'output')
+
+			if (window.location.host.includes('nmsgalactichub.com')) document.getElementById('otherPages').href = 'nmsgalactichub.com';
         }
     </script>
 </head>
@@ -21,7 +23,7 @@
 <body>
 	<div class="container" style="width: min(500px, 90%);">
         <nav style="display: flex; justify-content:space-between">
-			<a href="..">&larr; View other pages</a>
+			<a id="otherPages" href="..">&larr; View other pages</a>
             <a style="text-align: right;" href="./tagtoglyph.html">Convert Hub Tag to glyphs &rarr;</a>
         </nav>
         <h1 class="title">Hub-Tag Generator</h1>

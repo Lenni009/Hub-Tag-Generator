@@ -9,11 +9,11 @@
 	<script src="./logic.js"></script>
     <script>
         function showGlyphs() {
-            document.getElementById("glyph_display").innerHTML = document.getElementById("portalglyphs_input").value
+            document.getElementById("glyph_display").innerHTML = document.getElementById("portalglyphs_input").value;
         }
         window.onload = () => {
             hideGlyphs(document.getElementById('galaxy_input'), 'hide');
-            errorCheck('portalglyphs_input', 'galaxy_input', 'output')
+            errorCheck('portalglyphs_input', 'galaxy_input', 'output');
 
 			if (window.location.host.includes('nmsgalactichub.com')) document.querySelector('a[href=".."]').href = 'https://nmsgalactichub.com';
         }

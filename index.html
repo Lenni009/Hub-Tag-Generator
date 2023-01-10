@@ -9,7 +9,7 @@
 	<script src="./logic.js"></script>
 	<script>
 		function showGlyphs() {
-			document.getElementById("glyph_display").innerHTML = document.getElementById("portalglyphs_input").value;
+			document.getElementById("glyph_display").innerText = document.getElementById("portalglyphs_input").value;
 		}
 		window.onload = () => {
 			hideGlyphs(document.getElementById('galaxy_input'), 'hide');

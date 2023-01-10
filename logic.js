@@ -196,7 +196,7 @@ function errorfunc(inputId, output_codeId, error_codeId, error) {
 	document.getElementById(output_codeId).parentElement.parentElement.style.display = 'none'
 	document.getElementById(inputId).style.backgroundColor = 'lightcoral';
 	document.getElementById(error_codeId).parentElement.style.display = '';
-	document.getElementById(error_codeId).innerHTML = error
+	document.getElementById(error_codeId).innerText = error
 }
 
 function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI, error) {
@@ -206,11 +206,11 @@ function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI, error) {
 		document.getElementById(Nr).parentElement.parentElement.style.display = ''
 		document.getElementById(error).parentElement.style.display = 'none';
 		document.getElementById(glyph_inputId).style.backgroundColor = '';
-		document.getElementById(Nr).innerHTML = HubNr;
+		document.getElementById(Nr).innerText = HubNr;
 		if (SysIndex == 69) {
 			SysIndex = '68+1'
 		}
-		document.getElementById(SSI).innerHTML = SysIndex;
+		document.getElementById(SSI).innerText = SysIndex;
 	} else if (!HubNr > 0) {
 		errorfunc(glyph_inputId, Nr, error, 'Wrong region glyphs (glyphs 5-12)')
 	} else {
@@ -232,11 +232,11 @@ function submitTag(galaxy_inputId, tag_inputId, glyph_codeId, error) {
 	if (HubNr > 0 && HubNr <= Array.length) {
 		document.getElementById(error).parentElement.style.display = 'none'
 		document.getElementById(glyph_codeId).parentElement.parentElement.style.display = ''
-		document.getElementById(glyph_codeId).innerHTML = SysIndex + RegCode;
+		document.getElementById(glyph_codeId).innerText = SysIndex + RegCode;
 	} else {
 		document.getElementById(glyph_codeId).parentElement.parentElement.style.display = 'none'
 		document.getElementById(error).parentElement.style.display = ''
-		document.getElementById(error).innerHTML = 'Wrong region ID'
+		document.getElementById(error).innerText = 'Wrong region ID'
 	}
 }
 

@@ -25,7 +25,7 @@
 	<div class="container" style="width: min(500px, 90%);">
 		<nav style="display: flex; justify-content:space-between">
 			<a href="..">&larr; View other pages</a>
-			<a style="text-align: right;" href="./tagtoglyph.html">Convert Hub Tag to glyphs &rarr;</a>
+			<a style="text-align: right;" href="/tagtoglyph.html">Convert Hub Tag to glyphs &rarr;</a>
 		</nav>
 		<h1 class="title">Hub-Tag Generator</h1>
 		<form>
@@ -33,12 +33,12 @@
 				<label>Select your current galaxy:</label>
 				<select class="dropdown" name="galaxy" id="galaxy_input"
 					onchange="hideGlyphs(this, 'hide'); errorCheck('portalglyphs_input', this.id, 'output')">
-					<option value="">
-					<option value="Euclid">Euclid
-					<option value="Hilbert">Hilbert
-					<option value="Calypso">Calypso
-					<option value="Budullangr">Budullangr
-					<option value="Eissentam">Eissentam
+					<option value=""></option>
+					<option value="Euclid">Euclid</option>
+					<option value="Hilbert">Hilbert</option>
+					<option value="Calypso">Calypso</option>
+					<option value="Budullangr">Budullangr</option>
+					<option value="Eissentam">Eissentam</option>
 				</select>
 			</div>
 			<div class="hide" id="glyphs" style="display: none;">

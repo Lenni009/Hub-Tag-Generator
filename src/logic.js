@@ -86,7 +86,8 @@ function submit(element) {
 		generator: () => generateTag(),
 		decoder: () => decodeTag(),
 	}
-	const outputObject = sectionFunctions[sectionId]();
+	const outputObject = sectionFunctions[sectionId]() || { status: '', output: '' };
+
 	const outputStatus = outputObject.status;
 	const outputContent = outputObject.output;
 	const isError = outputStatus.includes('Error');
@@ -115,6 +116,7 @@ function deleteCharacter(inputId) {
 
 	input.value = editedText;
 	showGlyphs();
+	checkGlyphs(input);
 }
 
 // makes glyph buttons clickable and adds their value to input field
@@ -126,7 +128,9 @@ function glyphOnClick(button) {
 	if (portalCode.length < 12) {
 		input.value += button.value;
 	}
+
 	showGlyphs();
+	checkGlyphs(input);
 }
 
 function glyphInputOnChange(input) {
@@ -140,7 +144,7 @@ function glyphInputOnChange(input) {
 		.substr(0, 12);
 	input.value = newValue;
 	showGlyphs();
-	if (newValue.length == 12) checkGlyphs(input);
+	checkGlyphs(input);
 }
 
 function showGlyphs() {
@@ -153,10 +157,13 @@ function showGlyphs() {
 
 function generateTag() {
 	const glyphInputId = 'portalglyphsInput';
-	const glyphs = document.getElementById(glyphInputId).value;
+	const glyphInputElement = document.getElementById(glyphInputId);
+	const glyphs = glyphInputElement.value;
+	checkGlyphs(glyphInputElement, true);
+	if (!glyphs) return;
 	const regionNum = getRegionNum(glyphs);
 	const SIV = getSIV(glyphs);
-	if (!regionNum || !SIV) return { status: 'Error', output: 'Invalid System' };
+	if (!regionNum || !SIV) return { status: 'Error:', output: 'Invalid System' };
 	const tag = `[HUB${regionNum}-${SIV}]`;
 	return { status: 'Your Hub Tag:', output: tag };
 }
@@ -181,15 +188,14 @@ function getSIV(glyphs) {
 	return hexSIV.replace('69', '68+1');	// replace 69 with 68+1, because the profanity filter flags it
 }
 
-// error checking when length is 12
-function checkGlyphs(inputElement) {
+function checkGlyphs(inputElement, enableLengthCheck = false) {
 	const glyphs = inputElement.value;
 	const regionGlyphs = glyphs.substring(4);
 	const regions = getRegions(galaxy);
-	const correctLength = glyphs.length == 12 || !glyphs.length;
-	const regionInHub = regions.has(regionGlyphs);
+	const correctLength = enableLengthCheck ? glyphs.length == 12 : true;
+	const regionInHub = regions.has(regionGlyphs) || glyphs.length != 12;
 
-	inputElement.style.backgroundColor = correctLength && regionInHub ? '' : 'lightcoral';
+	inputElement.style.backgroundColor = (correctLength && regionInHub) || !glyphs.length ? '' : 'lightcoral';
 }
 
 

@@ -4,17 +4,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Hub-Tag Generator</title>
+	<title>Hub-Tag Tools</title>
 	<link rel="stylesheet" href="./src/styles.css">
-	<script src="./src/logic.js"></script>
+	<script src="./src/logic.js" defer></script>
 	<script>
-		function showGlyphs() {
-			document.getElementById("glyph_display").innerText = document.getElementById("portalglyphs_input").value;
-		}
 		window.onload = () => {
-			hideGlyphs(document.getElementById('galaxy_input'), 'hide');
-			errorCheck('portalglyphs_input', 'galaxy_input', 'output');
-
 			const GHubHosts = ['hubtag.nmsgalactichub.com', 'hub-tag.nmsgalactichub.com', 'hub-tag-generator.nmsgalactichub.com'];
 			if (GHubHosts.includes(window.location.host)) document.querySelector('a[href=".."]').href = 'https://lenni009.github.io/';	// 'https://nmsgalactichub.com';
 		}
@@ -22,106 +16,84 @@
 </head>
 
 <body>
-	<div class="container" style="width: min(500px, 90%);">
-		<nav style="display: flex; justify-content:space-between">
-			<a href="..">&larr; View other pages</a>
-			<a style="text-align: right;" href="/tagtoglyph.html">Convert Hub Tag to glyphs &rarr;</a>
-		</nav>
-		<h1 class="title">Hub-Tag Generator</h1>
-		<form>
-			<div>
-				<label>Select your current galaxy:</label>
-				<select class="dropdown" name="galaxy" id="galaxy_input"
-					onchange="hideGlyphs(this, 'hide'); errorCheck('portalglyphs_input', this.id, 'output')">
-					<option value=""></option>
-					<option value="Euclid">Euclid</option>
-					<option value="Hilbert">Hilbert</option>
-					<option value="Calypso">Calypso</option>
-					<option value="Budullangr">Budullangr</option>
-					<option value="Eissentam">Eissentam</option>
-				</select>
-			</div>
-			<div class="hide" id="glyphs" style="display: none;">
-				<div>
-					<label class="label" for="portalglyphs_input">Portalglyphs:</label>
-				</div>
+	<div class="container">
+		<header>
+			<nav>
+				<ul>
+					<li><a href="..">&larr; View other pages</a></li>
+				</ul>
+				<ul id="toc">
+					<li><a href="#generator" role="button">&#8627; Hub-Tag Generator</a></li>
+					<li><a href="#decoder" role="button">&#8627; Hub-Tag Decoder</a></li>
+				</ul>
+				<ul>
+					<li><button class="themeswitcher" role="button" onclick="switchTheme()">Switch Theme</button></li>
+				</ul>
+			</nav>
 
-				<div>
-					<input style="width:min(400px, 60%)" class="input" type="text" id="portalglyphs_input"
-						oninput="glyphInputOnChange(this); errorCheck(this.id, 'galaxy_input', 'output'); showGlyphs()"><button
-						class="button is-small is-danger" id="delButton" type="button"
-						onclick="deleteCharacter('portalglyphs_input')">&larr; Delete</button>
-				</div>
-				<div class="portal-buttons">
-					<button class="button" type="button" value="0" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">0</span>
-					</button>
-					<button class="button" type="button" value="1" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">1</span>
-					</button>
-					<button class="button" type="button" value="2" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">2</span>
-					</button>
-					<button class="button" type="button" value="3" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">3</span>
-					</button>
-					<button class="button" type="button" value="4" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">4</span>
-					</button>
-					<button class="button" type="button" value="5" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">5</span>
-					</button>
-					<button class="button" type="button" value="6" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">6</span>
-					</button>
-					<button class="button" type="button" value="7" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">7</span>
-					</button>
-					<button class="button" type="button" value="8" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">8</span>
-					</button>
-					<button class="button" type="button" value="9" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">9</span>
-					</button>
-					<button class="button" type="button" value="A" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">A</span>
-					</button>
-					<button class="button" type="button" value="B" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">B</span>
-					</button>
-					<button class="button" type="button" value="C" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">C</span>
-					</button>
-					<button class="button" type="button" value="D" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">D</span>
-					</button>
-					<button class="button" type="button" value="E" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">E</span>
-					</button>
-					<button class="button" type="button" value="F" onclick="glyphOnClick(this, 'portalglyphs_input')">
-						<span class="glyphs icon is-small">F</span>
-					</button>
-				</div>
-				<div><output class="glyphs" style="word-break: break-word" id="glyph_display"
-						name="portalglyphs"></output></div>
+			<h1 class="title">Hub-Tag Tools</h1>
 
-			</div>
-		</form>
-		<div class="actions hide" style="display: none;">
-			<input class="button is-primary" type="submit" value="Show Hub-Tag"
-				onclick="submitGlyphs('galaxy_input', 'portalglyphs_input', 'HubNr', 'SSI', 'error')">
-			<input class="button is-warning" type="reset" value="Reset Glyphs"
-				onclick="clearValues(['portalglyphs_input', 'glyph_display', 'HubNr', 'SSI', 'name'])">
-		</div>
-		<div id="output" style="display: none">
-			Your Hub-Tag:
-			<div class="HubTag">[HUB<output id="HubNr"></output>-<output id="SSI"></output>] <output id="name"></output>
-			</div>
-		</div>
-		<p>
-			<output class="error" id="error"></output>
-		</p>
+			<label>Select your current galaxy:</label>
+			<select id="galaxyInput" onchange="hideMain()">
+				<option value=""></option>
+				<option value="Euclid">Euclid</option>
+				<option value="Hilbert">Hilbert</option>
+				<option value="Calypso">Calypso</option>
+				<option value="Budullangr">Budullangr</option>
+				<option value="Eissentam">Eissentam</option>
+			</select>
+		</header>
+
+		<main>
+			<section id="generator">
+				<h2 class="title">Hub-Tag Generator</h2>
+				<div>
+					<label class="label" for="portalglyphsInput">Portalglyphs:</label>
+					<input class="input" type="text" id="portalglyphsInput" oninput="glyphInputOnChange(this)">
+					<button role="button" class="is-danger" id="delButton" type="button"
+						onclick="deleteCharacter('portalglyphsInput')">&larr;
+						Delete</button>
+					<div class="portal-buttons grid"></div>
+					<p>
+						<output class="glyphs" id="glyphDisplay"></output>
+					</p>
+
+				</div>
+				<div class="actions">
+					<input role="button" type="submit" value="Show Hub-Tag" onclick="submit(this)">
+					<input role="button" type="reset" value="Reset Glyphs" onclick="reset(this)">
+				</div>
+				<p class="output">
+					<span class="status"></span>
+					<output class="tag"></output>
+				</p>
+			</section>
+
+			<section id="decoder">
+				<h2 class="title">Hub-Tag Decoder</h2>
+				<div id="inputField">
+					<label class="label" for="tagInput">Hub-Tag:</label>
+					<input class="input" type="text" id="tagInput" oninput="this.value = this.value.toUpperCase()">
+				</div>
+				<div class="actions">
+					<input class="button" type="submit" value="Show Glyphs" onclick="submit(this)">
+					<input class="button" type="reset" value="Reset Hub-Tag" onclick="reset(this)">
+				</div>
+				<div class="output">
+					Glyphs:
+					<div class="glyphs"><output id="glyphDisplay"></output></div>
+				</div>
+				<p>
+					<output class="error" id="error"></output>
+				</p>
+			</section>
+		</main>
 	</div>
+
+	<footer>
+
+	</footer>
+
 </body>
 
 </html>

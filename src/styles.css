@@ -1,4 +1,4 @@
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+@import "https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css";
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
 /* glyph fonts */
@@ -10,72 +10,82 @@
 html,
 body {
 	font-family: Nunito;
+	scroll-behavior: smooth;
 }
 
 .container {
-	margin-bottom: 5em;
-	margin-top: 2em;
+	margin-block-end: 5rem;
+	margin-block-start: 1rem;
 }
 
 .glyphs {
 	font-family: NMS-Glyphs-Mono;
-	font-size: 40px;
-}
-
-.glyphs.icon.is-small {
-	height: inherit;
+	font-size: 3rem;
 }
 
 .portal-buttons {
 	display: grid;
-	grid-template-columns: repeat(8, 60px);
-	margin: 1em 0px;
+	grid-template-columns: repeat(8, auto);
+	max-width: 40rem;
 }
 
-@media only screen and (max-width: 564px) {
+.portal-buttons button {
+	line-height: 3rem;
+	padding: 0;
+}
+
+@media only screen and (max-width: 767px) {
 	.portal-buttons {
 		display: flex;
 		flex-wrap: wrap;
 	}
 
-	.actions {
-		margin: 0 auto;
+	.portal-buttons button {
+		width: 4rem;
 	}
 }
 
 #delButton {
-	margin: 0.5em;
+	margin-inline: 0.5em;
+	width: auto;
 }
 
 .title {
 	text-align: center;
-	padding-top: 0.5em;
+	margin-block: 1rem;
 }
 
-.HubTag {
+.tag {
 	font-family: 'Consolas', monospace;
 }
 
-.dropdown {
-	width: 15em;
-}
+input.input {
+	width: min(max(30%, 10rem), 100%);
 
-.actions {
-	width: inherit;
 }
 
 .actions>input {
-	margin: 3px 0px;
+	width: auto;
 }
 
-nav {
-	font-size: larger;
+#glyph_display {
+	word-break: break-word;
 }
 
-.error {
-	background-color: red;
+.is-danger {
+	background-color: indianred;
+	border: 1px solid firebrick;
 }
 
-label {
-	display: inline-block !important;
+.themeswitcher {
+	width: auto;
+	margin: 0 auto;
+}
+
+.output {
+	border-radius: var(--border-radius);
+}
+
+.output>* {
+	display: block;
 }

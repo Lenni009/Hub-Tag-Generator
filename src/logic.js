@@ -1,92 +1,116 @@
-const regions = {
-	Euclid: {
-		'F9556C30': 'The Arm of Vezitinen',
-		'F9555C30': 'Canthian',
-		'F9555C31': 'Dexterf Sector',
-		'F9556C31': 'The Arm of Katteus',
-		'F9557C31': 'Nugsdor Adjunct',
-		'F9557C30': 'Uefert Nebula',
-		'F9557C2F': 'Widraik',
-		'F9556C2F': 'Airnaka Conflux',
-		'F9555C2F': 'Sivess Instability',
-		'FA556C30': 'Savenix Instability',
-		'F8556C30': 'Nonlopsi Instability'
-	},
-	Hilbert: {
-		'F9556C30': 'Nuwardia',
-		'F9555C30': 'Arm of Orphaea',
-		'F9555C31': 'Oulvill',
-		'F9556C31': 'Sea of Femanau',
-		'F9557C31': 'Logalurug Expanse',
-		'F9557C30': 'Doikawis',
-		'F9557C2F': 'Ijortu Spur',
-		'F9556C2F': 'Bayores Shallows',
-		'F9555C2F': 'Meveldrun Expanse',
-		'FA556C30': 'Kossiza',
-		'F8556C30': 'Lorishup'
-	},
-	Calypso: {
-		'F9556C30': 'Uisaor Spur',
-		'F9555C30': 'The Arm of Kiffeyn',
-		'F9555C31': 'Ilongl Cloud',
-		'F9556C31': 'The Arm of Taticale',
-		'F9557C31': 'Egerap Anomaly',
-		'F9557C30': 'Wakestones Expanse',
-		'F9557C2F': 'Erhahn Fringe',
-		'F9556C2F': 'Imrikians Terminus',
-		'F9555C2F': 'Imedeili',
-		'FA556C30': 'Kovasu Adjunct',
-		'F8556C30': 'Lossians Boundary'
-	},
-	Budullangr: {
-		'F9556C30': 'The Arm of Mupkean',
-		'F9555C30': 'Uslogo Boundry',
-		'F9555C31': 'Chmida Boundry',
-		'F9556C31': 'Lawaik Void',
-		'F9557C31': 'Tuorng',
-		'F9557C30': 'Rorfinko Sector',
-		'F9557C2F': 'Nudyrok Nebula',
-		'F9556C2F': 'Gushener Terminus',
-		'F9555C2F': 'Layhyimpia Adjunct',
-		'FA556C30': 'Wodaabil Expanse',
-		'F8556C30': 'Baksan Adjunct'
-	},
-	Eissentam: {
-		'F9556C30': 'Riwala',
-		'F9555C30': 'Omskio Instability',
-		'F9555C31': 'Marcki',
-		'F9556C31': 'Anolamga Spur',
-		'F9557C31': 'Sea of Zonyayp',
-		'F9557C30': 'Rayuyar Band',
-		'F9557C2F': 'Umaton Instability',
-		'F9556C2F': 'Exramb Adjunct',
-		'F9555C2F': 'Ologowe Fringe',
-		'FA556C30': 'Yatrifex',
-		'FA555C30': 'Yeiada Sector',
-		'FA555C31': 'Iptrevs Fringe',
-		'FA556C31': 'Yamiraith Sector',
-		'FA557C31': 'Wedragi Spur',
-		'FA557C30': 'Rezhensk',
-		'FA557C2F': 'Sobert Cloud',
-		'FA556C2F': 'Umtats Anomaly',
-		'FA555C2F': 'Tavill',
-		'F8556C30': 'Qangew Expanse',
-		'F8555C30': 'Nijhwal Boundary',
-		'F8555C31': 'Usband Cluster',
-		'F8556C31': 'Ejongaa Anomaly',
-		'F8557C31': 'Zahrel Expanse',
-		'F8557C30': 'The Arm of Fupand',
-		'F8557C2F': 'Cuculta',
-		'F8556C2F': 'Etmarao',
-		'F8555C2F': 'Otreie Void'
+const validPortalKeys = '0123456789ABCDEF';
+let galaxy;
+
+(() => {
+	// determine preferred theme and update the html element with the respective tag
+	const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+	switchTheme(prefersDark ? 'dark' : 'light');
+
+	// hides the main element if no galaxy is given
+	hideMain();
+
+	// adds the portal buttons
+	const wrapper = document.querySelector('.portal-buttons');
+	if (!wrapper) return;
+	const codeStore = new Array;
+	for (const character of validPortalKeys) {
+		const button = `<button class="button glyphs" type="button" value="${character}" onclick="glyphOnClick(this)">${character}</button>`
+		codeStore.push(button);
 	}
+	wrapper.innerHTML = codeStore.join('');
+})();
+
+function getRegions(galaxy) {
+	const regionGlyphs = [
+		'F9556C30',
+		'F9555C30',
+		'F9555C31',
+		'F9556C31',
+		'F9557C31',
+		'F9557C30',
+		'F9557C2F',
+		'F9556C2F',
+		'F9555C2F',
+		'FA556C30',
+		'F8556C30',
+	]
+
+	const EisHubGlyphs = [
+		'FA556C30',
+		'FA555C30',
+		'FA555C31',
+		'FA556C31',
+		'FA557C31',
+		'FA557C30',
+		'FA557C2F',
+		'FA556C2F',
+		'FA555C2F',
+		'F8556C30',
+		'F8555C30',
+		'F8555C31',
+		'F8556C31',
+		'F8557C31',
+		'F8557C30',
+		'F8557C2F',
+		'F8556C2F',
+		'F8555C2F',
+	]
+	if (galaxy == 'Eissentam') regionGlyphs.splice(-2, 2, ...EisHubGlyphs);
+	return new Set(regionGlyphs);
 }
 
-const validPortalKeys = '0123456789ABCDEF'
+// hides the main element if no galaxy is given
+function hideMain() {
+	const dropdownId = 'galaxyInput';
+	const tocId = 'toc';
+	const dropdownElement = document.getElementById(dropdownId);
+	const tocElement = document.getElementById(tocId);
+	const mainElement = document.querySelector('main');
+	galaxy = dropdownElement.value;
+	mainElement.style.display = galaxy ? '' : 'none';
+	tocElement.style.visibility = galaxy ? '' : 'hidden';
+}
+
+// gets section of clicked element
+function getSectionId(element) {
+	return element.closest('section').id;
+}
+
+// puts text into the output element
+function submit(element) {
+	const sectionId = getSectionId(element);
+	const sectionOutputWrapper = document.querySelector(`#${sectionId} .output`);
+	const sectionOutput = sectionOutputWrapper.querySelector(`output`);
+	const sectionStatusOutput = sectionOutputWrapper.querySelector(`.status`);
+	const sectionFunctions = {
+		generator: () => generateTag(),
+		decoder: () => decodeTag(),
+	}
+	const outputObject = sectionFunctions[sectionId]();
+	const outputStatus = outputObject.status;
+	const outputContent = outputObject.output;
+	const isError = outputStatus.includes('Error');
+
+	sectionOutputWrapper.style.backgroundColor = isError ? 'red' : '';
+	sectionStatusOutput.innerText = outputStatus;
+	sectionOutput.innerText = outputContent;
+}
+
+// clears input values
+function reset(element) {
+	const section = getSectionId(element);
+	const sectionElement = document.getElementById(section);
+	const input = sectionElement.querySelector('input');
+	const outputs = sectionElement.querySelectorAll(`output, .output>*`);
+	for (const output of outputs) {
+		output.innerHTML = '';
+	}
+	input.value = '';
+}
 
 // deletes last character of a string
-function deleteCharacter(codeId) {
-	const input = document.getElementById(codeId);
+function deleteCharacter(inputId) {
+	const input = document.getElementById(inputId);
 	const editedText = input.value.slice(0, -1);
 
 	input.value = editedText;
@@ -94,8 +118,8 @@ function deleteCharacter(codeId) {
 }
 
 // makes glyph buttons clickable and adds their value to input field
-function glyphOnClick(button, inputId) {
-
+function glyphOnClick(button) {
+	const inputId = 'portalglyphsInput';
 	const input = document.getElementById(inputId);
 	const portalCode = input.value;
 
@@ -115,59 +139,59 @@ function glyphInputOnChange(input) {
 		.join('')
 		.substr(0, 12);
 	input.value = newValue;
-	return newValue;
+	showGlyphs();
+	if (newValue.length == 12) checkGlyphs(input);
 }
 
-// clears value of an input
-function clearValues(inputArray) {
-	for (const ID of inputArray) {
-		document.getElementById(ID).value = '';
-	}
+function showGlyphs() {
+	const glyphInputId = 'portalglyphsInput';
+	const glyphOutputId = 'glyphDisplay';
+	const glyphInput = document.getElementById(glyphInputId);
+	const glyphOutput = document.getElementById(glyphOutputId);
+	glyphOutput.innerText = glyphInput.value;
 }
 
-function hideGlyphs(input, target) {
-	const names = document.getElementsByClassName(target);
-	for (const name of names) {
-		name.style.display = input.value ? '' : 'none';
-	}
+function generateTag() {
+	const glyphInputId = 'portalglyphsInput';
+	const glyphs = document.getElementById(glyphInputId).value;
+	const regionNum = getRegionNum(glyphs);
+	const SIV = getSIV(glyphs);
+	if (!regionNum || !SIV) return { status: 'Error', output: 'Invalid System' };
+	const tag = `[HUB${regionNum}-${SIV}]`;
+	return { status: 'Your Hub Tag:', output: tag };
 }
 
 // returns Hub nr
-function getHubNumber(galaxy_inputId, glyph_inputId) {
-	const check = document.getElementById(galaxy_inputId).value;
-	const glyphs = document.getElementById(glyph_inputId).value;
+function getRegionNum(glyphs) {
 	const regionGlyphs = glyphs.substring(4);
-	const regArray = Object.keys(regions[check]);
+	const regArray = Array.from(getRegions(galaxy))
 	const index = regArray.indexOf(regionGlyphs);
-	return index + 1;
+	// return false if region doesn't exist
+	return index > -1 ? index + 1 : false;
 }
 
-function errorfunc(inputId, output_codeId, error_codeId, error) {
-	document.getElementById(output_codeId).parentElement.parentElement.style.display = 'none';
-	document.getElementById(inputId).style.backgroundColor = 'lightcoral';
-	document.getElementById(error_codeId).parentElement.style.display = '';
-	document.getElementById(error_codeId).innerText = error;
+// returns System Index Value
+function getSIV(glyphs) {
+	const systemIndex = glyphs.substring(1, 4);
+	// this removes leading zeros
+	const decSIV = Number('0x' + systemIndex);
+	// return false if system is not reachable via portal (max system index is 2FF, which is 767 in dec)
+	if (!decSIV || decSIV > 767) return false;
+	const hexSIV = decSIV.toString(16).toUpperCase();
+	return hexSIV.replace('69', '68+1');	// replace 69 with 68+1, because the profanity filter flags it
 }
 
-function submitGlyphs(galaxy_inputId, glyph_inputId, Nr, SSI, error) {
-	const glyphInput = document.getElementById(glyph_inputId);
-	const hubNrOutput = document.getElementById(Nr);
-	const HubNr = getHubNumber(galaxy_inputId, glyph_inputId);
-	let SysIndex = parseInt(glyphInput.value.substring(1, 4), 16).toString(16).toUpperCase();
-	if (HubNr > 0 && parseInt(SysIndex, 16) > 0 && parseInt(SysIndex, 16) < 768) {
-		hubNrOutput.closest('#output').style.display = '';
-		document.getElementById(error).parentElement.style.display = 'none';
-		glyphInput.style.backgroundColor = '';
-		hubNrOutput.innerText = HubNr;
-		if (SysIndex == 69) {
-			SysIndex = '68+1'
-		}
-		document.getElementById(SSI).innerText = SysIndex;
-	} else {
-		const errorMessage = HubNr > 0 ? 'Wrong system index (glyphs 2-4)' : 'Wrong region glyphs (glyphs 5-12)';
-		errorfunc(glyph_inputId, Nr, error, errorMessage);
-	}
+// error checking when length is 12
+function checkGlyphs(inputElement) {
+	const glyphs = inputElement.value;
+	const regionGlyphs = glyphs.substring(4);
+	const regions = getRegions(galaxy);
+	const correctLength = glyphs.length == 12 || !glyphs.length;
+	const regionInHub = regions.has(regionGlyphs);
+
+	inputElement.style.backgroundColor = correctLength && regionInHub ? '' : 'lightcoral';
 }
+
 
 function submitTag(galaxy_inputId, tag_inputId, glyph_codeId, error) {
 	const errorElement = document.getElementById(error);
@@ -194,14 +218,14 @@ function submitTag(galaxy_inputId, tag_inputId, glyph_codeId, error) {
 	}
 }
 
-// error checking when length is 12
-function errorCheck(glyphs_inputId, galaxy_inputId, outputDiv) {
-	const glyphs = document.getElementById(glyphs_inputId);
-	const galaxy = document.getElementById(galaxy_inputId).value;
-	if (glyphs.value.length == 12 && !Object.keys(regions[galaxy]).includes(glyphs.value.substring(4))) {
-		document.getElementById(outputDiv).style.display = 'none'
-		glyphs.style.backgroundColor = 'lightcoral';
-	} else {
-		glyphs.style.backgroundColor = '';
-	}
+
+
+
+
+
+function switchTheme(theme = null) {
+	const currentTheme = document.documentElement.dataset.theme;
+	const computedNewTheme = currentTheme == 'dark' ? 'light' : 'dark';
+	const newTheme = theme ?? computedNewTheme;
+	document.documentElement.dataset.theme = newTheme;
 }

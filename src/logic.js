@@ -76,27 +76,6 @@ function getSectionId(element) {
 	return element.closest('section').id;
 }
 
-// puts text into the output element
-function submit(element) {
-	const sectionId = getSectionId(element);
-	const sectionOutputWrapper = document.querySelector(`#${sectionId} .output`);
-	const sectionOutput = sectionOutputWrapper.querySelector(`output`);
-	const sectionStatusOutput = sectionOutputWrapper.querySelector(`.status`);
-	const sectionFunctions = {
-		generator: () => generateTag(),
-		decoder: () => decodeTag(),
-	}
-	const outputObject = sectionFunctions[sectionId]() || { status: '', output: '' };
-
-	const outputStatus = outputObject.status;
-	const outputContent = outputObject.output;
-	const isError = outputStatus.includes('Error');
-
-	sectionOutputWrapper.style.backgroundColor = isError ? 'red' : '';
-	sectionStatusOutput.innerText = outputStatus;
-	sectionOutput.innerText = outputContent;
-}
-
 // clears input values
 function reset(element) {
 	const section = getSectionId(element);
@@ -155,15 +134,39 @@ function showGlyphs() {
 	glyphOutput.innerText = glyphInput.value;
 }
 
+// puts text into the output element
+function submit(element) {
+	const sectionId = getSectionId(element);
+	const sectionOutputWrapper = document.querySelector(`#${sectionId} .output`);
+	const sectionOutput = sectionOutputWrapper.querySelector(`output`);
+	const sectionStatusOutput = sectionOutputWrapper.querySelector(`.status`);
+	const sectionFunctions = {
+		generator: () => generateTag(),
+		decoder: () => decodeTag(),
+	}
+	const outputObject = sectionFunctions[sectionId]() || { status: '', output: '' };
+
+	const outputStatus = outputObject.status;
+	const outputContent = outputObject.output;
+	const isError = outputStatus.includes('Error');
+
+	sectionOutputWrapper.style.backgroundColor = isError ? 'red' : '';
+	sectionStatusOutput.innerText = outputStatus;
+	sectionOutput.innerText = outputContent;
+}
+
 function generateTag() {
 	const glyphInputId = 'portalglyphsInput';
 	const glyphInputElement = document.getElementById(glyphInputId);
 	const glyphs = glyphInputElement.value;
-	checkGlyphs(glyphInputElement, true);
+	const { valid, error } = checkGlyphs(glyphInputElement, true);
+
 	if (!glyphs) return;
+
+	if (!valid) return { status: 'Error:', output: error };
+
 	const regionNum = getRegionNum(glyphs);
 	const SIV = getSIV(glyphs);
-	if (!regionNum || !SIV) return { status: 'Error:', output: 'Invalid System' };
 	const tag = `[HUB${regionNum}-${SIV}]`;
 	return { status: 'Your Hub Tag:', output: tag };
 }
@@ -173,8 +176,7 @@ function getRegionNum(glyphs) {
 	const regionGlyphs = glyphs.substring(4);
 	const regArray = Array.from(getRegions(galaxy))
 	const index = regArray.indexOf(regionGlyphs);
-	// return false if region doesn't exist
-	return index > -1 ? index + 1 : false;
+	if (index > -1) return index + 1;
 }
 
 // returns System Index Value
@@ -183,7 +185,7 @@ function getSIV(glyphs) {
 	// this removes leading zeros
 	const decSIV = Number('0x' + systemIndex);
 	// return false if system is not reachable via portal (max system index is 2FF, which is 767 in dec)
-	if (!decSIV || decSIV > 767) return false;
+	if (!decSIV || decSIV > 767) return;
 	const hexSIV = decSIV.toString(16).toUpperCase();
 	return hexSIV.replace('69', '68+1');	// replace 69 with 68+1, because the profanity filter flags it
 }
@@ -191,43 +193,61 @@ function getSIV(glyphs) {
 function checkGlyphs(inputElement, enableLengthCheck = false) {
 	const glyphs = inputElement.value;
 	const regionGlyphs = glyphs.substring(4);
+	const systemIndex = glyphs.substring(1, 4);
+	// this removes leading zeros
+	const decSIV = Number('0x' + systemIndex);
 	const regions = getRegions(galaxy);
 	const correctLength = enableLengthCheck ? glyphs.length == 12 : true;
 	const regionInHub = regions.has(regionGlyphs) || glyphs.length != 12;
+	const reachable = decSIV && decSIV < 768;
+	const valid = (correctLength && regionInHub && reachable) || !glyphs.length;
 
-	inputElement.style.backgroundColor = (correctLength && regionInHub) || !glyphs.length ? '' : 'lightcoral';
+	inputElement.style.backgroundColor = valid ? '' : 'lightcoral';
+
+	if (!valid) {
+		if (!correctLength) {
+			return { valid: false, error: 'Invalid glyph sequence: Incorrect length' };
+		}
+
+		if (!regionInHub) {
+			return { valid: false, error: 'Invalid glyph sequence: No Hub region' };
+		}
+
+		if (!reachable) {
+			return { valid: false, error: 'Invalid glyph sequence: Not reachable via portal' };
+		}
+	}
+
+	return { valid: true };
 }
 
+function decodeTag() {
+	const tagInputId = 'tagInput';
+	const tagInputElement = document.getElementById(tagInputId);
+	const input = tagInputElement.value.replaceAll(/[\[\]]/g, '').replaceAll('68+1', '69').trim();	// NoSonar the escape character is necessary
+	if (!input) return;
+	console.log(input)
+	const regions = Array.from(getRegions(galaxy));
+	const [hub, sysIndex] = input.split('-');
+	const regionIndex = hub.replace('HUB', '') - 1;
+	const regionCode = regions[regionIndex];
 
-function submitTag(galaxy_inputId, tag_inputId, glyph_codeId, error) {
-	const errorElement = document.getElementById(error);
-	const glyphElement = document.getElementById(glyph_codeId);
-	const galaxy = document.getElementById(galaxy_inputId).value;
-	const input = document.getElementById(tag_inputId).value.replaceAll('[', '').replaceAll(']', '').replaceAll('68+1', '69');
-	const HubNr = input.split('-')[0].substring(3);
-	const RegCode = Object.keys(regions[galaxy])[(parseInt(HubNr) - 1)]
-	if (input.split('-').length == 1) {
-		errorfunc(tag_inputId, glyph_codeId, error, 'Invalid Hub tag format (missing "-")');
-		return
+	if (!sysIndex || regionIndex < 0 || !hub.startsWith('HUB')) {
+		let errorMessage;
+		if (!sysIndex) {
+			errorMessage = 'Invalid Hub tag format (missing "-")';
+		} else if (regionIndex < 0 || !hub.startsWith('HUB')) {
+			errorMessage = 'Invalid Hub tag format (no "HUB" or wrong region ID)';
+		}
+		return { status: 'Error:', output: errorMessage };
 	}
-	const sysIndex = input.split('-')[1].substring(0, 3).padStart(3, '0')
-	const regionGlyphs = Object.keys(regions[galaxy])
 
-	const regionCorrect = HubNr > 0 && HubNr <= regionGlyphs.length;
+	const planetIndex = '0';
+	const sysIndexStr = sysIndex.padStart(3, '0');
+	const glyphStr = planetIndex + sysIndexStr + regionCode;
 
-	errorElement.parentElement.style.display = regionCorrect ? 'none' : '';
-	glyphElement.closest('#output').style.display = regionCorrect ? '' : 'none';
-	if (regionCorrect) {
-		glyphElement.innerText = sysIndex + RegCode;
-	} else {
-		errorElement.innerText = 'Wrong region ID';
-	}
+	return { status: 'Glyphs:', output: glyphStr };
 }
-
-
-
-
-
 
 function switchTheme(theme = null) {
 	const currentTheme = document.documentElement.dataset.theme;

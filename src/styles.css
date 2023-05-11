@@ -84,6 +84,7 @@ input.input {
 
 .output {
 	border-radius: var(--border-radius);
+	padding: .25rem;
 }
 
 .output>* {

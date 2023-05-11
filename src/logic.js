@@ -203,7 +203,7 @@ function checkGlyphs(inputElement, enableLengthCheck = false) {
 	const regions = getRegions(galaxy);
 
 	const correctLength = glyphs.length == 12;
-	const regionInHub = regions.has(regionGlyphs) || glyphs.length != 12;
+	const regionInHub = regions.has(regionGlyphs);
 	const reachable = decSIV && decSIV < 768;
 
 

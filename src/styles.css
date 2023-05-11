@@ -90,3 +90,11 @@ input.input {
 .output>* {
 	display: block;
 }
+
+.error {
+	background-color: red;
+}
+
+input.error {
+	background-color: lightcoral;
+}

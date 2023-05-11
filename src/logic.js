@@ -82,6 +82,10 @@ function reset(element) {
 	const sectionElement = document.getElementById(section);
 	const input = sectionElement.querySelector('input');
 	const outputs = sectionElement.querySelectorAll(`output, .output>*`);
+	const errorElements = sectionElement.querySelectorAll('.error');
+	for (const element of errorElements) {
+		element.classList.remove('error');
+	}
 	for (const output of outputs) {
 		output.innerHTML = '';
 	}
@@ -150,7 +154,7 @@ function submit(element) {
 	const outputContent = outputObject.output;
 	const isError = outputStatus.includes('Error');
 
-	sectionOutputWrapper.style.backgroundColor = isError ? 'red' : '';
+	sectionOutputWrapper.classList[isError ? 'add' : 'remove']('error');
 	sectionStatusOutput.innerText = outputStatus;
 	sectionOutput.innerText = outputContent;
 }
@@ -159,11 +163,11 @@ function generateTag() {
 	const glyphInputId = 'portalglyphsInput';
 	const glyphInputElement = document.getElementById(glyphInputId);
 	const glyphs = glyphInputElement.value;
-	const { valid, error } = checkGlyphs(glyphInputElement, true);
+	const { isValid, error } = checkGlyphs(glyphInputElement, true);
 
 	if (!glyphs) return;
 
-	if (!valid) return { status: 'Error:', output: error };
+	if (!isValid) return { status: 'Error:', output: error };
 
 	const regionNum = getRegionNum(glyphs);
 	const SIV = getSIV(glyphs);
@@ -197,28 +201,39 @@ function checkGlyphs(inputElement, enableLengthCheck = false) {
 	// this removes leading zeros
 	const decSIV = Number('0x' + systemIndex);
 	const regions = getRegions(galaxy);
-	const correctLength = enableLengthCheck ? glyphs.length == 12 : true;
+
+	const correctLength = glyphs.length == 12;
 	const regionInHub = regions.has(regionGlyphs) || glyphs.length != 12;
 	const reachable = decSIV && decSIV < 768;
-	const valid = (correctLength && regionInHub && reachable) || !glyphs.length;
 
-	inputElement.style.backgroundColor = valid ? '' : 'lightcoral';
 
-	if (!valid) {
+	const isValid = (() => {
+		if (enableLengthCheck || glyphs.length == 12) {
+			return correctLength && regionInHub && reachable;
+		}
+
+		if (glyphs.length != 12) {
+			return true;
+		}
+	})();
+
+	inputElement.classList[isValid ? 'remove' : 'add']('error');
+
+	if (!isValid) {
 		if (!correctLength) {
-			return { valid: false, error: 'Invalid glyph sequence: Incorrect length' };
+			return { isValid: false, error: 'Invalid glyph sequence: Incorrect length' };
 		}
 
 		if (!regionInHub) {
-			return { valid: false, error: 'Invalid glyph sequence: No Hub region' };
+			return { isValid: false, error: 'Invalid glyph sequence: No Hub region' };
 		}
 
 		if (!reachable) {
-			return { valid: false, error: 'Invalid glyph sequence: Not reachable via portal' };
+			return { isValid: false, error: 'Invalid glyph sequence: Not reachable via portal' };
 		}
 	}
 
-	return { valid: true };
+	return { isValid: true };
 }
 
 function decodeTag() {

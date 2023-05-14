@@ -42,7 +42,7 @@ function updateGlobalElements(object: ElementIds): void {
 		const obj = entries[1] as ElementId;
 		for (const [key, dest] of Object.entries(obj)) {
 			const element = getElement(dest);
-			if (element == null) return;
+			if (element == null) continue;
 			globalElements[section] ??= {};
 			globalElements[section]![key] = element;
 		}

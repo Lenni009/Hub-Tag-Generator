@@ -1,10 +1,9 @@
-@import "https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css";
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
 /* glyph fonts */
 @font-face {
 	font-family: 'NMS-Glyphs-Mono';
-	src: local('NMS-Glyphs-Mono'), url('../assets/NMS-Glyphs-Mono.ttf') format('truetype');
+	src: local('NMS-Glyphs-Mono'), url('./fonts/NMS-Glyphs-Mono.ttf') format('truetype');
 }
 
 html,
@@ -93,6 +92,11 @@ input.input {
 
 .error {
 	background-color: red;
+}
+
+.error .glyphs {
+	font-family: inherit;
+	font-size: inherit;
 }
 
 input.error {

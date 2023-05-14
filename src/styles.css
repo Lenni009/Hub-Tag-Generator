@@ -17,9 +17,14 @@ body {
 	margin-block-start: 1rem;
 }
 
+header {
+	margin-block-end: 2rem;
+}
+
 .glyphs {
 	font-family: NMS-Glyphs-Mono;
 	font-size: 3rem;
+	word-break: break-word;
 }
 
 .portal-buttons {
@@ -51,7 +56,7 @@ body {
 
 .title {
 	text-align: center;
-	margin-block: 1rem;
+	margin-block-end: 2rem;
 }
 
 .tag {
@@ -60,15 +65,10 @@ body {
 
 input.input {
 	width: min(max(30%, 10rem), 100%);
-
 }
 
 .actions>input {
 	width: auto;
-}
-
-#glyph_display {
-	word-break: break-word;
 }
 
 .is-danger {

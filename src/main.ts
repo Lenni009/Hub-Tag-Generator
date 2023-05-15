@@ -23,8 +23,7 @@ export function hideMain() {
 	const tocElement = globalElements.output![tocId] as HTMLUListElement;
 	const mainElement = document.querySelector('main') as HTMLElement;
 	galaxy = dropdownElement.value;
-	mainElement.style.display = galaxy ? '' : 'none';
-	tocElement.style.visibility = galaxy ? '' : 'hidden';
+	([mainElement, tocElement]).forEach(element => element.style.display = galaxy ? '' : 'none');
 }
 
 // gets section of clicked element

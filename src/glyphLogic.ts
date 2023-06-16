@@ -4,6 +4,9 @@ import { getRegions } from './getRegions';
 import { galaxy } from './main';
 
 const validPortalKeys = '0123456789ABCDEF';
+const maxIndex = 767;
+const regionGlyphStart = 4;
+const expectedGlyphLength = 12;
 
 // adds the portal buttons
 const wrapper = document.querySelector('.portal-buttons') as HTMLElement;
@@ -34,7 +37,7 @@ export function glyphInputOnChange(input: HTMLInputElement) {
 		.split('')
 		.filter(char => validPortalKeys.includes(char))
 		.join('')
-		.substring(0, 12);
+		.substring(0, expectedGlyphLength);
 	input.value = newValue;
 	showGlyphs();
 	checkGlyphs(input);
@@ -54,7 +57,7 @@ function glyphOnClick(button: HTMLButtonElement) {
 	const input = globalElements.input![inputId] as HTMLInputElement;
 	const portalCode = input.value;
 
-	if (portalCode.length < 12) {
+	if (portalCode.length < expectedGlyphLength) {
 		input.value += button.value;
 	}
 
@@ -77,22 +80,21 @@ export function checkGlyphs(inputElement: HTMLInputElement, enableLengthCheck: b
 	error?: string;
 } {
 	const glyphs = inputElement.value;
-	const regionGlyphs = glyphs.substring(4);
-	const systemIndex = glyphs.substring(1, 4);
+	const regionGlyphs = glyphs.substring(regionGlyphStart);
+	const systemIndex = glyphs.substring(1, regionGlyphStart);
 	// this removes leading zeros
 	const decSIV = Number('0x' + systemIndex);
 	const regions = getRegions(galaxy);
 
-	const correctLength = glyphs.length == 12;
+	const correctLength = glyphs.length == expectedGlyphLength;
 	const regionInHub = regions.has(regionGlyphs);
-	const reachable = (decSIV && decSIV < 768) as boolean;
-
+	const reachable = (decSIV && decSIV < (maxIndex + 1)) as boolean;
 	const isValid = (() => {
-		if (enableLengthCheck || glyphs.length == 12) {
+		if (enableLengthCheck || glyphs.length == expectedGlyphLength) {
 			return correctLength && regionInHub && reachable;
 		}
 
-		if (glyphs.length != 12) {
+		if (glyphs.length != expectedGlyphLength) {
 			return true;
 		}
 
@@ -120,7 +122,7 @@ export function checkGlyphs(inputElement: HTMLInputElement, enableLengthCheck: b
 
 // returns Hub nr
 export function getRegionNum(glyphs: string): number {
-	const regionGlyphs = glyphs.substring(4);
+	const regionGlyphs = glyphs.substring(regionGlyphStart);
 	const regArray = Array.from(getRegions(galaxy))
 	const index = regArray.indexOf(regionGlyphs);
 	return index > -1 ? index + 1 : 0;
@@ -128,11 +130,11 @@ export function getRegionNum(glyphs: string): number {
 
 // returns System Index Value
 export function getSIV(glyphs: string): string {
-	const systemIndex = glyphs.substring(1, 4);
+	const systemIndex = glyphs.substring(1, regionGlyphStart);
 	// this removes leading zeros
 	const decSIV = Number('0x' + systemIndex);
 	// return false if system is not reachable via portal (max system index is 2FF, which is 767 in dec)
-	if (!decSIV || decSIV > 767) return '';
-	const hexSIV = decSIV.toString(16).toUpperCase();
+	if (!decSIV || decSIV > maxIndex) return '';
+	const hexSIV = decSIV.toString(16).toUpperCase();	// NoSonar this is dec to hex
 	return hexSIV.replace('69', '68+1');	// replace 69 with 68+1, because the profanity filter flags it
 }

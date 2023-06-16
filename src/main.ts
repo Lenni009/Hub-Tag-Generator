@@ -7,6 +7,7 @@ import { globalElements } from './elementStore';
 import { OutputObj } from './formActions';
 
 export let galaxy: string;
+const systemIndexLength = 3;
 
 // hides the main element if no galaxy is given
 hideMain();
@@ -69,7 +70,7 @@ export function decodeTag(): OutputObj {
 	}
 
 	const planetIndex = '0';
-	const sysIndexStr = sysIndex.padStart(3, '0');
+	const sysIndexStr = sysIndex.padStart(systemIndexLength, '0');
 	const glyphStr = planetIndex + sysIndexStr + regionCode;
 
 	return { status: 'Glyphs:', output: glyphStr };

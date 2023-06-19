@@ -33,7 +33,6 @@ export function getRegions(galaxy: string): Set<string> {
 		'F8556C2F',
 		'F8555C2F',
 	];
-	if (galaxy == 'Eissentam')
-		regionGlyphs.splice(-2, 2, ...EisHubGlyphs);
+	if (galaxy == 'Eissentam') regionGlyphs.splice(-2, 2, ...EisHubGlyphs);		// NoSonar remove last two regions and replace them with all of EisHub's regions which already include the removed regions
 	return new Set(regionGlyphs);
 }

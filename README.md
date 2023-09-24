@@ -1,2 +1,2 @@
-# Hub-Tag-Generator
-Easily generate Hub tags for the Galactic Hub and its sister civs.
+# Eisvana System Naming Tools
+Easily generate Prefixes for Eisvana star systems.

@@ -1,7 +1,6 @@
 import { assignFunction, ElementFunctions } from './elementFunctions';
 import { globalElements } from './elementStore';
-import { getRegions } from './getRegions';
-import { galaxy } from './main';
+import { regionGlyphs } from './regions';
 
 const validPortalKeys = '0123456789ABCDEF';
 const maxIndex = 767;
@@ -80,18 +79,17 @@ export function checkGlyphs(inputElement: HTMLInputElement, enableLengthCheck: b
 	error?: string;
 } {
 	const glyphs = inputElement.value;
-	const regionGlyphs = glyphs.substring(regionGlyphStart);
+	const regionGlyphSubstring = glyphs.substring(regionGlyphStart);
 	const systemIndex = glyphs.substring(1, regionGlyphStart);
 	// this removes leading zeros
 	const decSIV = Number('0x' + systemIndex);
-	const regions = getRegions(galaxy);
 
 	const correctLength = glyphs.length == expectedGlyphLength;
-	const regionInHub = regions.has(regionGlyphs);
+	const regionInEV = regionGlyphs.includes(regionGlyphSubstring);
 	const reachable = (decSIV && decSIV < (maxIndex + 1)) as boolean;
 	const isValid = (() => {
 		if (enableLengthCheck || glyphs.length == expectedGlyphLength) {
-			return correctLength && regionInHub && reachable;
+			return correctLength && regionInEV && reachable;
 		}
 
 		if (glyphs.length != expectedGlyphLength) {
@@ -104,27 +102,20 @@ export function checkGlyphs(inputElement: HTMLInputElement, enableLengthCheck: b
 	inputElement.classList[isValid ? 'remove' : 'add']('error');
 
 	if (!isValid) {
-		if (!correctLength) {
-			return { isValid: false, error: 'Invalid glyph sequence: Incorrect length' };
-		}
+		if (!correctLength) return { isValid: false, error: 'Invalid glyph sequence: Incorrect length' };
 
-		if (!regionInHub) {
-			return { isValid: false, error: 'Invalid glyph sequence: No Hub region' };
-		}
+		if (!regionInEV) return { isValid: false, error: 'Invalid glyph sequence: No Eisvana region' };
 
-		if (!reachable) {
-			return { isValid: false, error: 'Invalid glyph sequence: Not reachable via portal' };
-		}
+		if (!reachable) return { isValid: false, error: 'Invalid glyph sequence: Not reachable via portal' };
 	}
 
 	return { isValid: true };
 }
 
-// returns Hub nr
+// returns region nr
 export function getRegionNum(glyphs: string): number {
 	const regionGlyphs = glyphs.substring(regionGlyphStart);
-	const regArray = Array.from(getRegions(galaxy))
-	const index = regArray.indexOf(regionGlyphs);
+	const index = regionGlyphs.indexOf(regionGlyphs);
 	return index > -1 ? index + 1 : 0;
 }
 

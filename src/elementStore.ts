@@ -18,7 +18,6 @@ export interface GlobalElements {
 const elementIds: ElementIds = {
 	input: {
 		themeswitcher: 'themeswitcher',
-		galaxyInput: 'galaxyInput',
 		portalglyphsInput: 'portalglyphsInput',
 		delButton: 'delButton',
 		submitBtnGen: 'submitBtnGen',

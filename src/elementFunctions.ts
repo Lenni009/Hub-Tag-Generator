@@ -1,7 +1,6 @@
 import { getElement, GlobalElement, globalElements, GlobalElements } from './elementStore';
 import { reset, submit } from './formActions';
 import { deleteCharacter, glyphInputOnChange } from './glyphLogic';
-import { hideMain } from './main';
 import { switchTheme } from './themeSwitch';
 
 export interface ElementFunctions {
@@ -15,11 +14,6 @@ const elementFunctions: ElementFunctions[] = [
 		element: 'themeswitcher',
 		handler: 'click',
 		func: function () { switchTheme() }
-	},
-	{
-		element: 'galaxyInput',
-		handler: 'change',
-		func: function () { hideMain() }
 	},
 	{
 		element: 'portalglyphsInput',
@@ -66,9 +60,7 @@ export function assignFunction(dataObject: ElementFunctions): void {
 	const { handler, func } = dataObject;
 	const elementId = dataObject.element as keyof GlobalElements;
 	const element = (() => {
-		if (globalElements[elementId]) {
-			return globalElements[elementId];
-		}
+		if (globalElements[elementId]) return globalElements[elementId];
 
 		return getElement(elementId);
 	})() as GlobalElement;

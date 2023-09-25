@@ -64,7 +64,6 @@ export function assignFunction(dataObject: ElementFunctions): void {
 
 		return getElement(elementId);
 	})() as GlobalElement;
-	console.log(elementId, element)
 	if (Array.isArray(element)) {
 		element.forEach(element => element.addEventListener(handler, func));
 	} else {

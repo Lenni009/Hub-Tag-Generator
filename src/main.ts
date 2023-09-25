@@ -9,17 +9,6 @@ import { OutputObj } from './formActions';
 export let galaxy: string;
 const systemIndexLength = 3;
 
-// hides the main element if no galaxy is given
-export function hideMain() {
-	const dropdownId = 'galaxyInput';
-	const tocId = 'toc';
-	const dropdownElement = globalElements.input![dropdownId] as HTMLSelectElement;
-	const tocElement = globalElements.output![tocId] as HTMLUListElement;
-	const mainElement = document.querySelector('main') as HTMLElement;
-	galaxy = dropdownElement.value;
-	([mainElement, tocElement]).forEach(element => element.style.display = galaxy ? '' : 'none');
-}
-
 // gets section of clicked element
 export function getSectionId(element: HTMLElement) {
 	return element.closest('section')!.id;
@@ -37,7 +26,7 @@ export function generateTag(): OutputObj {
 
 	const regionNum = getRegionNum(glyphs);
 	const SIV = getSIV(glyphs);
-	const tag = `EV${regionNum}-${SIV}]`;
+	const tag = `EV${regionNum}-${SIV}`;
 	return { status: 'System Name Prefix:', output: tag };
 }
 

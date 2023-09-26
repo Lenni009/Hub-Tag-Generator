@@ -116,7 +116,6 @@ export function checkGlyphs(inputElement: HTMLInputElement, enableLengthCheck: b
 export function getRegionNum(glyphs: string): number {
 	const regionGlyphSubstring = glyphs.substring(regionGlyphStart);
 	const index = regionGlyphs.indexOf(regionGlyphSubstring);
-	console.log(index)
 	return index > -1 ? index + 1 : 0;
 }
 

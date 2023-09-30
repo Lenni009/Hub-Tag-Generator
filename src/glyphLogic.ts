@@ -1,3 +1,4 @@
+import { coords2Glyphs } from './coordConversion';
 import { assignFunction, ElementFunctions } from './elementFunctions';
 import { globalElements } from './elementStore';
 import { regionGlyphs } from './regions';
@@ -29,25 +30,25 @@ for (const obj of functionArray) {
 }
 
 export function glyphInputOnChange(input: HTMLInputElement) {
-	const intermediateValue = input?.value?.toUpperCase?.();
+	const intermediateValue = input?.value?.toUpperCase();
 	if (intermediateValue == null) return;
 
 	const newValue = intermediateValue
 		.split('')
-		.filter(char => validPortalKeys.includes(char))
+		.filter(char => (validPortalKeys + ':').includes(char))
 		.join('')
-		.substring(0, expectedGlyphLength);
+		.substring(0);
 	input.value = newValue;
-	showGlyphs();
 	checkGlyphs(input);
 }
 
-function showGlyphs() {
+function showGlyphs(glyphs: string | undefined = undefined) {
 	const glyphInputId = 'portalglyphsInput';
 	const glyphOutputId = 'glyphDisplay';
-	const glyphInput = globalElements.input![glyphInputId] as HTMLInputElement;
-	const glyphOutput = globalElements.output![glyphOutputId] as HTMLOutputElement;
-	glyphOutput.innerText = glyphInput.value;
+	const glyphInput = globalElements.input?.[glyphInputId];
+	const glyphOutput = globalElements.output?.[glyphOutputId];
+	if (!(glyphInput instanceof HTMLInputElement && glyphOutput instanceof HTMLOutputElement)) return;
+	glyphOutput.innerText = glyphs ?? glyphInput.value;
 }
 
 // makes glyph buttons clickable and adds their value to input field
@@ -78,13 +79,14 @@ export function checkGlyphs(inputElement: HTMLInputElement, enableLengthCheck: b
 	isValid: boolean;
 	error?: string;
 } {
-	const glyphs = inputElement.value;
+	const glyphs = coords2Glyphs(inputElement.value);
+	showGlyphs(glyphs);
 	const regionGlyphSubstring = glyphs.substring(regionGlyphStart);
 	const systemIndex = glyphs.substring(1, regionGlyphStart);
 	// this removes leading zeros
-	const decSIV = Number('0x' + systemIndex);
+	const decSIV = parseInt(systemIndex, 16);
 
-	const correctLength = glyphs.length == expectedGlyphLength;
+	const correctLength = glyphs.length === expectedGlyphLength;
 	const regionInEV = regionGlyphs.includes(regionGlyphSubstring);
 	const reachable = (decSIV && decSIV < (maxIndex + 1)) as boolean;
 	const isValid = (() => {
@@ -114,16 +116,16 @@ export function checkGlyphs(inputElement: HTMLInputElement, enableLengthCheck: b
 
 // returns region nr
 export function getRegionNum(glyphs: string): number {
-	const regionGlyphSubstring = glyphs.substring(regionGlyphStart);
+	const regionGlyphSubstring = coords2Glyphs(glyphs).substring(regionGlyphStart);
 	const index = regionGlyphs.indexOf(regionGlyphSubstring);
 	return index > -1 ? index + 1 : 0;
 }
 
 // returns System Index Value
 export function getSIV(glyphs: string): string {
-	const systemIndex = glyphs.substring(1, regionGlyphStart);
+	const systemIndex = coords2Glyphs(glyphs).substring(1, regionGlyphStart);
 	// this removes leading zeros
-	const decSIV = Number('0x' + systemIndex);
+	const decSIV = parseInt(systemIndex, 16);
 	// return false if system is not reachable via portal (max system index is 2FF, which is 767 in dec)
 	if (!decSIV || decSIV > maxIndex) return '';
 	const hexSIV = decSIV.toString(16).toUpperCase();	// NoSonar this is dec to hex

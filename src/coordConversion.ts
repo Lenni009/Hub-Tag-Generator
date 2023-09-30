@@ -30,7 +30,7 @@ export function coords2Glyphs(coords: string): string {
 		portal_y = y_coords - Y_NEG_SHIFT;
 	}
 
-	const glyphs = new Array(5);
+	const glyphs = [];
 	glyphs[0] = '0';
 	glyphs[1] = system_idx.toString(16).toUpperCase().padStart(3, '0');
 	glyphs[2] = portal_y.toString(16).toUpperCase().padStart(2, '0');

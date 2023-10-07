@@ -65,7 +65,7 @@ header {
 }
 
 input.input {
-	width: min(max(30%, 10rem), 100%);
+	max-width: 15rem;
 }
 
 .actions>input {

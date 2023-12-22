@@ -49,6 +49,7 @@ watchEffect(() => (prefix.value = prefix.value.toUpperCase()));
   <div>
     <label for="prefix">Prefix:</label>
     <input
+      :aria-invalid="isNotEisvana || undefined"
       class="prefix-input"
       id="prefix"
       type="text"
@@ -63,7 +64,7 @@ watchEffect(() => (prefix.value = prefix.value.toUpperCase()));
     <p class="error">Invalid Prefix!</p>
   </div>
   <div
-    v-show="!isNaN(regionNumber) && !isNaN(systemIndex)"
+    v-show="!isNaN(regionNumber) && !isNaN(systemIndex) && !isNotEisvana"
     class="output-wrapper"
   >
     <p class="output-label">Glyphs:</p>

@@ -44,14 +44,11 @@ header {
 
   .error {
     background-color: red;
+    color: white;
     display: inline;
     padding: 0.5rem;
     border-radius: var(--border-radius);
   }
-}
-
-input.error {
-  background-color: lightcoral;
 }
 
 .input-group,

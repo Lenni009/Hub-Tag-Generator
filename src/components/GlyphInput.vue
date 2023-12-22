@@ -48,7 +48,7 @@ const maxLength = computed(() => (isCoords.value || !glyphValues.value ? maxCoor
     >
     <div class="glyph-input-wrapper">
       <input
-        :class="{ error }"
+        :aria-invalid="error || undefined"
         :maxlength="maxLength"
         class="glyphs-input"
         id="portalglyphsInput"

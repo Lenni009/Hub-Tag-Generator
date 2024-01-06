@@ -20,7 +20,7 @@
     "vue": "^3.3.13"
   },
   "dependencies": {
-    "@picocss/pico": "^1.5.10",
+    "@picocss/pico": "^1.5.11",
     "@vitejs/plugin-vue": "^4.5.2",
     "@vue/tsconfig": "^0.5.1",
     "pinia": "^2.1.7",

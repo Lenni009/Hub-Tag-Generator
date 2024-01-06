@@ -35,8 +35,8 @@ const isNotEisvana = computed(() => !regionNumber.value && glyphValues.value.len
 </script>
 
 <template>
-  <h2>Prefix Generator</h2>
-  <p>A system prefix consists of two parts:</p>
+  <h2>Name Generator</h2>
+  <p>A proper system name consists of two parts:</p>
   <div class="input-group">
     <div>
       <label for="systemName">System Name:</label>

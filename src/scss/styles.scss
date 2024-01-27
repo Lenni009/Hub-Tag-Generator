@@ -1,7 +1,9 @@
 /* glyph fonts */
 @font-face {
   font-family: 'NMS-Glyphs-Mono';
-  src: local('NMS-Glyphs-Mono'), url('./fonts/NMS-Glyphs-Mono.ttf') format('truetype');
+  src:
+    local('NMS-Glyphs-Mono'),
+    url('./fonts/NMS-Glyphs-Mono.ttf') format('truetype');
 }
 
 html,
@@ -39,15 +41,22 @@ header {
   display: block;
 }
 
-.error-wrapper {
+.status-wrapper {
   margin-block-end: 1rem;
 
-  .error {
-    background-color: red;
-    color: white;
+  .status {
     display: inline;
     padding: 0.5rem;
     border-radius: var(--border-radius);
+    color: white;
+
+    &.error {
+      background-color: red;
+    }
+
+    &.success {
+      background-color: green;
+    }
   }
 }
 

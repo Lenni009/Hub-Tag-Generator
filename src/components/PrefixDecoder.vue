@@ -58,10 +58,10 @@ watchEffect(() => (prefix.value = prefix.value.toUpperCase()));
     />
   </div>
   <div
-    class="error-wrapper"
+    class="status-wrapper"
     v-show="isNotEisvana"
   >
-    <p class="error">Invalid Prefix!</p>
+    <p class="status error">Invalid Prefix!</p>
   </div>
   <div
     v-show="!isNaN(regionNumber) && !isNaN(systemIndex) && !isNotEisvana"

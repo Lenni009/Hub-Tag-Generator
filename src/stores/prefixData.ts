@@ -1,4 +1,4 @@
-import { useCoords2Glyphs } from '@/composables/coordGlyphConvert';
+import { coords2Glyphs } from '@/logic/coordGlyphConvert';
 import { defineStore } from 'pinia';
 
 interface State {
@@ -15,6 +15,6 @@ export const usePrefixDataStore = defineStore('prefixData', {
   }),
 
   getters: {
-    glyphValues: (state) => useCoords2Glyphs(state.glyphs),
+    glyphValues: (state) => coords2Glyphs(state.glyphs),
   },
 });

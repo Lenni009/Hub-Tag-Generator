@@ -1,27 +1,18 @@
 <script setup lang="ts">
 import GlyphInput from './GlyphInput.vue';
-import { regionGlyphs } from '../variables/regions';
-import { systemIndexLength, maxGlyphLength } from '../variables/constants';
+import { maxGlyphLength } from '../variables/constants';
 import { computed } from 'vue';
 
 import { usePrefixDataStore } from '../stores/prefixData';
 import { storeToRefs } from 'pinia';
+import { getPrefix, getRegionNumber } from '@/logic/prefix';
 
 const prefixDataStore = usePrefixDataStore();
 const { glyphs, glyphValues, systemName } = storeToRefs(prefixDataStore);
 
-const regionNumber = computed(() => {
-  const regionGlyphsSubstring = glyphValues.value.slice(4);
-  const regionIndex = regionGlyphs.indexOf(regionGlyphsSubstring);
-  return regionIndex + 1;
-});
-
 const prefix = computed(() => {
-  const systemIndexString = glyphValues.value.slice(1, 4);
-  const systemIndex = parseInt(systemIndexString, 16);
-  if (!regionNumber.value || isNaN(systemIndex) || systemIndexString.length !== systemIndexLength) return '';
-  const expectedIndex = systemIndex.toString(16).replace('69', '68+1').toUpperCase();
-  return `EV${regionNumber.value}-${expectedIndex} ${systemName.value}`;
+  const barePrefix = getPrefix(glyphValues.value);
+  return barePrefix ? `${barePrefix} ${systemName.value}` : '';
 });
 
 function resetTagGenerator() {
@@ -31,7 +22,7 @@ function resetTagGenerator() {
 
 const outputLabel = computed(() => (systemName.value ? 'System Name' : 'Prefix'));
 
-const isNotEisvana = computed(() => !regionNumber.value && glyphValues.value.length === maxGlyphLength);
+const isNotEisvana = computed(() => !getRegionNumber(glyphValues.value) && glyphValues.value.length === maxGlyphLength);
 </script>
 
 <template>
@@ -52,10 +43,10 @@ const isNotEisvana = computed(() => !regionNumber.value && glyphValues.value.len
     />
   </div>
   <div
-    class="error-wrapper"
+    class="status-wrapper"
     v-show="isNotEisvana"
   >
-    <p class="error">Not in Eisvana!</p>
+    <p class="status error">Not in Eisvana!</p>
   </div>
   <div
     v-show="prefix"

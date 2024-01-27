@@ -2,6 +2,7 @@
 import NavBar from './components/NavBar.vue';
 import PrefixGenerator from './components/PrefixGenerator.vue';
 import PrefixDecoder from './components/PrefixDecoder.vue';
+import PrefixQuiz from './components/PrefixQuiz.vue';
 </script>
 
 <template>
@@ -14,5 +15,7 @@ import PrefixDecoder from './components/PrefixDecoder.vue';
     <PrefixGenerator />
     <hr />
     <PrefixDecoder />
+    <hr />
+    <PrefixQuiz />
   </main>
 </template>

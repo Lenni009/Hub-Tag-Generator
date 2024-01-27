@@ -12,7 +12,7 @@ import PrefixDecoder from './components/PrefixDecoder.vue';
 
   <main>
     <PrefixGenerator />
-    <hr>
+    <hr />
     <PrefixDecoder />
   </main>
 </template>

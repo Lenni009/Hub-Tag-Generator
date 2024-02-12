@@ -33,7 +33,7 @@ header {
 }
 
 .output {
-  border-radius: var(--border-radius);
+  border-radius: var(--pico-border-radius);
   padding: 0.25rem;
 }
 
@@ -47,7 +47,7 @@ header {
   .status {
     display: inline;
     padding: 0.5rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--pico-border-radius);
     color: white;
 
     &.error {

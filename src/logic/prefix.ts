@@ -12,6 +12,6 @@ export function getPrefix(glyphs: string): string {
   const systemIndex = parseInt(systemIndexString, 16);
   const regionNumber = getRegionNumber(glyphs);
   if (!regionNumber || isNaN(systemIndex) || systemIndexString.length !== systemIndexLength) return '';
-  const expectedIndex = systemIndex.toString(16).replace('69', '68+1').toUpperCase();
+  const expectedIndex = systemIndex.toString(16).toUpperCase();
   return `EV${regionNumber}-${expectedIndex}`;
 }

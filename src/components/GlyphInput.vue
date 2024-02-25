@@ -110,6 +110,7 @@ const maxLength = computed(() => (isCoords.value || !glyphValues.value ? maxCoor
   .button {
     line-height: 3rem;
     padding: 0;
+    margin: 0;
   }
 }
 

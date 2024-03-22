@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/Eisvana-System-Naming-Tools/',
+  // base: '/Eisvana-System-Naming-Tools/',
   plugins: [vue()],
   resolve: {
     alias: {

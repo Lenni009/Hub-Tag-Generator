@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import ThemeSwitch from './ThemeSwitch.vue';
+
+const isEisvanaHost = window.location.host === 'album.eisvana.com';
 </script>
 
 <template>
   <nav>
     <ul>
       <li>
-        <a href="..">&larr; View other pages</a>
+        <a :href="isEisvanaHost ? 'https://eisvana.com' : '..'">&larr; View other pages</a>
       </li>
     </ul>
     <ul>

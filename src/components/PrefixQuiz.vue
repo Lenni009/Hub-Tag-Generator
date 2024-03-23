@@ -161,4 +161,3 @@ form {
   opacity: 0;
 }
 </style>
-@/logic/coordGlyphConvert

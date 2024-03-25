@@ -21,6 +21,6 @@
     "@picocss/pico": "^2.0.6",
     "@vitejs/plugin-vue": "^5.0.4",
     "pinia": "^2.1.7",
-    "vue-tsc": "^2.0.6"
+    "vue-tsc": "^2.0.7"
   }
 }

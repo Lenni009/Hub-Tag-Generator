@@ -11,3 +11,15 @@ exports[`PrefixDecoder > should render correctly 1`] = `
 </div>
 <button data-v-29f6294f="" class="reset-button secondary" type="reset" style="display: none;"> Reset </button>"
 `;
+
+exports[`PrefixDecoder > should render correctly when bad regions are entered 1`] = `
+"<h2 data-v-29f6294f="">Prefix Decoder</h2>
+<div data-v-29f6294f=""><label data-v-29f6294f="" for="prefix">Prefix:</label><input data-v-29f6294f="" class="prefix-input" id="prefix" type="text" maxlength="9"></div>
+<div data-v-29f6294f="" class="status-wrapper" style="display: none;">
+  <p data-v-29f6294f="" class="status error">Invalid Prefix!</p>
+</div>
+<div data-v-29f6294f="" class="output-wrapper" style="display: none;">
+  <p data-v-29f6294f="" class="output-label">Glyphs:</p><output data-v-29f6294f="" class="glyphs">0NAN</output>
+</div>
+<button data-v-29f6294f="" class="reset-button secondary" type="reset" style="display: none;"> Reset </button>"
+`;

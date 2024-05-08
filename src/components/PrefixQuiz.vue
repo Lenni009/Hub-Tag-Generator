@@ -75,20 +75,20 @@ const output = computed(() => {
       />
     </div>
     <div class="actions">
-      <input
-        role="button"
+      <button
         type="submit"
-        :value="quizSystem.solved ? 'Next' : 'Submit'"
         @click="submitSystemName"
-      />
-      <input
+      >
+        {{ quizSystem.solved ? 'Next' : 'Submit' }}
+      </button>
+      <button
         v-show="!quizSystem.solved"
         class="secondary"
         type="button"
-        role="button"
-        value="Skip"
         @click="newQuizSystem"
-      />
+      >
+        Skip
+      </button>
     </div>
   </form>
   <Transition>
@@ -141,11 +141,14 @@ form {
     width: min-content;
   }
 
-  margin-block-end: 0;
   .actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+
+    button {
+      width: auto;
+    }
   }
 
   input {

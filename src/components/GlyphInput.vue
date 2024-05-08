@@ -59,7 +59,6 @@ const maxLength = computed(() => (isCoords.value || !glyphValues.value ? maxCoor
       <button
         class="delete-button is-error"
         id="delButton"
-        role="button"
         type="button"
         @click="deleteGlyph"
       >

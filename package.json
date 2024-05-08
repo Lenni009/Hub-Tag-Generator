@@ -26,6 +26,7 @@
     "vue-tsc": "^2.0.16"
   },
   "dependencies": {
+    "@nmscd/coordinate-conversion": "^1.2.2",
     "@picocss/pico": "^2.0.6"
   }
 }

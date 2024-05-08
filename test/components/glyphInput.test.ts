@@ -37,6 +37,15 @@ describe('GlyphInput', () => {
     const button = wrapper.find('button.button.glyphs');
     await button.trigger('click');
 
-    expect(glyphs.value).toBe('0'); // replace 'expected-value' with the expected value after clicking the button
+    expect(glyphs.value).toBe('0');
+  });
+
+  it('does not update glyphs.value when a bad value is entered', async () => {
+    const store = usePrefixDataStore(pinia);
+    const { glyphs } = storeToRefs(store);
+    const input = wrapper.find('input[type="text"]');
+    await input.setValue('h');
+
+    expect(glyphs.value).toBe('');
   });
 });

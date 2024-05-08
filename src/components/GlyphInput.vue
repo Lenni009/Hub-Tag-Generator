@@ -48,12 +48,12 @@ const maxLength = computed(() => (isCoords.value || !glyphValues.value ? maxCoor
     >
     <div class="glyph-input-wrapper">
       <input
+        v-model="glyphs"
         :aria-invalid="error || undefined"
         :maxlength="maxLength"
         class="glyphs-input"
         id="portalglyphsInput"
         type="text"
-        v-model="glyphs"
         @input="lintGlyphs"
       />
       <button
@@ -68,10 +68,10 @@ const maxLength = computed(() => (isCoords.value || !glyphValues.value ? maxCoor
     <div class="portal-buttons grid">
       <button
         v-for="n in 16"
-        class="button glyphs"
-        type="button"
         :id="'glyphButton' + n"
         :value="numberToGlyph(n - 1)"
+        class="button glyphs"
+        type="button"
         @click="addGlyph"
       >
         {{ numberToGlyph(n - 1) }}

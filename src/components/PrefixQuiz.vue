@@ -21,8 +21,6 @@ function generateQuizSystem(): QuizSystem {
 
 const newQuizSystem = () => (quizSystem.value = generateQuizSystem());
 
-const profanityFilter = computed(() => quizSystem.value.inputName.includes('69'));
-
 const isPrefixCorrect = computed(() => quizSystem.value.inputName.startsWith(quizSystem.value.expectedPrefix));
 
 function submitSystemName() {
@@ -42,7 +40,6 @@ function submitSystemName() {
 }
 
 const output = computed(() => {
-  if (profanityFilter.value) return 'Rejected By Profanity Filter';
   if (!quizSystem.value.solved) {
     return isPrefixCorrect.value ? 'Enter Prefix + Name!' : 'Incorrect!';
   }

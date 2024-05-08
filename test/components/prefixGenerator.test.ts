@@ -29,13 +29,14 @@ describe('PrefixGenerator', () => {
     const button = wrapper.find('button.reset-button');
     await button.trigger('click');
 
-    expect(glyphs.value + systemName.value).toBe('');
+    expect(glyphs.value).toBe('');
+    expect(systemName.value).toBe('');
   });
 
   it('should have the correct label', async () => {
     const output = wrapper.find('.output-label');
 
-    expect(output.element.textContent).toBe('Prefix:');
+    expect(output.text()).toBe('Prefix:');
   });
 
   it('should have the correct label', async () => {
@@ -45,6 +46,6 @@ describe('PrefixGenerator', () => {
     await systemInput.setValue('Hello World');
     await glyphInput.setValue('0001A21117FF');
 
-    expect(output.element.textContent).toBe('EV1-1 Hello World');
+    expect(output.text()).toBe('EV1-1 Hello World');
   });
 });

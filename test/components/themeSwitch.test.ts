@@ -15,9 +15,10 @@ describe('ThemeSwitch', () => {
 
   it('should swap theme if clicked', async () => {
     const currentTheme = document.documentElement.dataset.theme;
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     const button = wrapper.find('button');
     await button.trigger('click');
 
-    expect(document.documentElement.dataset.theme).toBe(currentTheme === 'dark' ? 'light' : 'dark');
+    expect(document.documentElement.dataset.theme).toBe(newTheme);
   });
 });

@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ThemeSwitch > should render correctly 1`] = `"<button data-v-7e4fbe6f="" class="themeswitcher" id="themeSwitch"> Switch Theme </button>"`;

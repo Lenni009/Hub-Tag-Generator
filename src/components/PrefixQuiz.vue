@@ -21,8 +21,6 @@ function generateQuizSystem(): QuizSystem {
 
 const newQuizSystem = () => (quizSystem.value = generateQuizSystem());
 
-const profanityFilter = computed(() => quizSystem.value.inputName.includes('69'));
-
 const isPrefixCorrect = computed(() => quizSystem.value.inputName.startsWith(quizSystem.value.expectedPrefix));
 
 function submitSystemName() {
@@ -42,7 +40,6 @@ function submitSystemName() {
 }
 
 const output = computed(() => {
-  if (profanityFilter.value) return 'Rejected By Profanity Filter';
   if (!quizSystem.value.solved) {
     return isPrefixCorrect.value ? 'Enter Prefix + Name!' : 'Incorrect!';
   }
@@ -75,20 +72,20 @@ const output = computed(() => {
       />
     </div>
     <div class="actions">
-      <input
-        role="button"
+      <button
         type="submit"
-        :value="quizSystem.solved ? 'Next' : 'Submit'"
         @click="submitSystemName"
-      />
-      <input
+      >
+        {{ quizSystem.solved ? 'Next' : 'Submit' }}
+      </button>
+      <button
         v-show="!quizSystem.solved"
         class="secondary"
         type="button"
-        role="button"
-        value="Skip"
         @click="newQuizSystem"
-      />
+      >
+        Skip
+      </button>
     </div>
   </form>
   <Transition>
@@ -141,11 +138,14 @@ form {
     width: min-content;
   }
 
-  margin-block-end: 0;
   .actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+
+    button {
+      width: auto;
+    }
   }
 
   input {
@@ -161,4 +161,3 @@ form {
   opacity: 0;
 }
 </style>
-@/logic/coordGlyphConvert

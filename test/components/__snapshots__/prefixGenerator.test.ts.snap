@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PrefixGenerator > should render correctly 1`] = `
+"<h2 data-v-49337c37="">Name Generator</h2>
+<p data-v-49337c37="">A proper system name consists of two parts:</p>
+<div data-v-49337c37="" class="input-group">
+  <div data-v-49337c37=""><label data-v-49337c37="" for="systemName">System Name:</label><input data-v-49337c37="" id="systemName" type="text"></div>
+  <div data-v-ed03a538="" data-v-49337c37="" class="glyph-input"><label data-v-ed03a538="" class="required" for="portalglyphsInput">Glyphs or Coordinates:</label>
+    <div data-v-ed03a538="" class="glyph-input-wrapper"><input data-v-ed03a538="" maxlength="19" class="glyphs-input" id="portalglyphsInput" type="text"><button data-v-ed03a538="" class="delete-button is-error" id="delButton" type="button"> ← Delete </button></div>
+    <div data-v-ed03a538="" class="portal-buttons grid"><button data-v-ed03a538="" id="glyphButton1" class="button glyphs" type="button" value="0">0</button><button data-v-ed03a538="" id="glyphButton2" class="button glyphs" type="button" value="1">1</button><button data-v-ed03a538="" id="glyphButton3" class="button glyphs" type="button" value="2">2</button><button data-v-ed03a538="" id="glyphButton4" class="button glyphs" type="button" value="3">3</button><button data-v-ed03a538="" id="glyphButton5" class="button glyphs" type="button" value="4">4</button><button data-v-ed03a538="" id="glyphButton6" class="button glyphs" type="button" value="5">5</button><button data-v-ed03a538="" id="glyphButton7" class="button glyphs" type="button" value="6">6</button><button data-v-ed03a538="" id="glyphButton8" class="button glyphs" type="button" value="7">7</button><button data-v-ed03a538="" id="glyphButton9" class="button glyphs" type="button" value="8">8</button><button data-v-ed03a538="" id="glyphButton10" class="button glyphs" type="button" value="9">9</button><button data-v-ed03a538="" id="glyphButton11" class="button glyphs" type="button" value="A">A</button><button data-v-ed03a538="" id="glyphButton12" class="button glyphs" type="button" value="B">B</button><button data-v-ed03a538="" id="glyphButton13" class="button glyphs" type="button" value="C">C</button><button data-v-ed03a538="" id="glyphButton14" class="button glyphs" type="button" value="D">D</button><button data-v-ed03a538="" id="glyphButton15" class="button glyphs" type="button" value="E">E</button><button data-v-ed03a538="" id="glyphButton16" class="button glyphs" type="button" value="F">F</button></div>
+    <p data-v-ed03a538="" class="glyph-display-wrapper" style="display: none;"><output data-v-ed03a538="" class="glyphs" id="glyphDisplay"></output></p>
+  </div>
+</div>
+<div data-v-49337c37="" class="status-wrapper" style="display: none;">
+  <p data-v-49337c37="" class="status error">Not in Eisvana!</p>
+</div>
+<div data-v-49337c37="" class="output-wrapper" style="display: none;">
+  <p data-v-49337c37="" class="output-label">Prefix:</p><output data-v-49337c37="" class="prefix-output"></output>
+</div>
+<button data-v-49337c37="" class="reset-button secondary" type="reset" style="display: none;"> Reset </button>"
+`;

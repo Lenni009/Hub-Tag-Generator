@@ -24,6 +24,13 @@ describe('GlyphInput', () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
+  it('should render correctly when component is in error', async () => {
+    await wrapper.setProps({
+      error: true,
+    });
+    expect(wrapper.html()).toMatchSnapshot();
+  });
+
   it('updates glyphs.value when a button is clicked', async () => {
     const store = usePrefixDataStore(pinia);
     const { glyphs } = storeToRefs(store);

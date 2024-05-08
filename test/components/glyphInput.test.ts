@@ -66,4 +66,16 @@ describe('GlyphInput', () => {
 
     expect(glyphValues.value).toBe('005EA21107FF');
   });
+
+  it('removes glyph', async () => {
+    const store = usePrefixDataStore(pinia);
+    const { glyphs } = storeToRefs(store);
+    const input = wrapper.find('input[type="text"]');
+    await input.setValue('0');
+
+    const button = wrapper.find('button#delButton');
+    await button.trigger('click');
+
+    expect(glyphs.value).toBe('');
+  });
 });

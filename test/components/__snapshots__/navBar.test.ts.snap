@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NavBar > should render correctly 1`] = `
+"<nav>
+  <ul>
+    <li><a href="..">← View other pages</a></li>
+  </ul>
+  <ul>
+    <li><button data-v-7e4fbe6f="" class="themeswitcher" id="themeSwitch"> Switch Theme </button></li>
+  </ul>
+</nav>"
+`;

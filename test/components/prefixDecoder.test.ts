@@ -38,4 +38,20 @@ describe('PrefixDecoder', () => {
 
     expect(wrapper.html()).toMatchSnapshot();
   });
+
+  it('should render correctly when bad regions are entered', async () => {
+    const store = usePrefixDataStore(pinia);
+    const { prefix } = storeToRefs(store);
+    prefix.value = 'EV5-AB69';
+
+    expect(wrapper.html()).toMatchSnapshot();
+  });
+
+  it('should render correctly when bad regions are entered', async () => {
+    const store = usePrefixDataStore(pinia);
+    const { prefix } = storeToRefs(store);
+    prefix.value = 'EV0-69';
+
+    expect(wrapper.html()).toMatchSnapshot();
+  });
 });

@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PrefixQuiz > should render correctly 1`] = `
+"<h2 data-v-73aa79bf="">Naming Quiz</h2>
+<p data-v-73aa79bf="" class="cta">Provide an appropriate system name for this address:</p>
+<div data-v-73aa79bf="" class="address">
+  <p data-v-73aa79bf=""><span data-v-73aa79bf="" class="has-text-weight-bold">Coordinates:</span><span data-v-73aa79bf="" class="text-size-bigger">0FFE:0021:0910:0001</span></p>
+  <p data-v-73aa79bf=""><span data-v-73aa79bf="" class="has-text-weight-bold">Glyphs:</span><span data-v-73aa79bf="" class="glyphs">0001A21117FF</span></p>
+</div>
+<form data-v-73aa79bf="">
+  <div data-v-73aa79bf="" class="system-name-input"><label data-v-73aa79bf="" for="quizSystemName">Full System Name:</label><input data-v-73aa79bf="" id="quizSystemName" placeholder="EVx-xx Hello World" type="text"></div>
+  <div data-v-73aa79bf="" class="actions"><button data-v-73aa79bf="" type="submit">Submit</button><button data-v-73aa79bf="" class="secondary" type="button"> Skip </button></div>
+</form>
+<transition-stub data-v-73aa79bf="" appear="false" persisted="false" css="true">
+  <!--v-if-->
+</transition-stub>"
+`;

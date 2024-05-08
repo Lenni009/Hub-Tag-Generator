@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { mount, type VueWrapper } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 
-describe('App', () => {
+describe('PrefixGenerator', () => {
   let wrapper: VueWrapper;
   const pinia = createTestingPinia();
 

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`App > should render correctly 1`] = `
+exports[`PrefixDecoder > should render correctly 1`] = `
 "<h2 data-v-29f6294f="">Prefix Decoder</h2>
 <div data-v-29f6294f=""><label data-v-29f6294f="" for="prefix">Prefix:</label><input data-v-29f6294f="" class="prefix-input" id="prefix" type="text" maxlength="9"></div>
 <div data-v-29f6294f="" class="status-wrapper" style="display: none;">

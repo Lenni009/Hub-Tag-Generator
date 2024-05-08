@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`App > should render correctly 1`] = `
+exports[`PrefixGenerator > should render correctly 1`] = `
 "<h2 data-v-49337c37="">Name Generator</h2>
 <p data-v-49337c37="">A proper system name consists of two parts:</p>
 <div data-v-49337c37="" class="input-group">

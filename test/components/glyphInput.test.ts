@@ -48,4 +48,22 @@ describe('GlyphInput', () => {
 
     expect(glyphs.value).toBe('');
   });
+
+  it('converts coords to glyphs', async () => {
+    const store = usePrefixDataStore(pinia);
+    const { glyphValues } = storeToRefs(store);
+    const input = wrapper.find('input[type="text"]');
+    await input.setValue('0FFE:0021:090F:005E');
+
+    expect(glyphValues.value).toBe('005EA21107FF');
+  });
+
+  it('keeps glyphs intact', async () => {
+    const store = usePrefixDataStore(pinia);
+    const { glyphValues } = storeToRefs(store);
+    const input = wrapper.find('input[type="text"]');
+    await input.setValue('005EA21107FF');
+
+    expect(glyphValues.value).toBe('005EA21107FF');
+  });
 });

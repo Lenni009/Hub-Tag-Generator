@@ -11,7 +11,7 @@
     "test-ci": "vitest run"
   },
   "devDependencies": {
-    "@pinia/testing": "^0.1.6",
+    "@pinia/testing": "^0.1.7",
     "@types/node": "^22.8.7",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitest/coverage-v8": "^2.1.4",

@@ -103,7 +103,7 @@ const output = computed(() => {
   </Transition>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .cta {
   margin-block-end: 1rem;
 }

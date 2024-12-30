@@ -65,7 +65,7 @@ const isNotEisvana = computed(() => !getRegionNumber(glyphValues.value) && glyph
   </button>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .glyph-input {
   flex-grow: 1;
   margin-block-end: 1rem;

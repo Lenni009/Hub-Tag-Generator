@@ -90,7 +90,7 @@ const maxLength = computed(() => (isCoords.value || !glyphValues.value ? maxCoor
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .glyphs {
   font-family: NMS-Glyphs-Mono;
   font-size: 3rem;

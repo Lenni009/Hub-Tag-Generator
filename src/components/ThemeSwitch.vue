@@ -21,7 +21,7 @@ function switchTheme(theme: string | undefined = undefined) {
   </button>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .themeswitcher {
   width: auto;
   margin: 0 auto;

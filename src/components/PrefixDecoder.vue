@@ -77,7 +77,7 @@ watchEffect(() => (prefix.value = prefix.value.toUpperCase()));
   </button>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .prefix-input {
   width: auto;
 }
